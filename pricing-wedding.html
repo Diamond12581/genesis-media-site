@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>婚礼摄影报价 — 开物传媒</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @font-face {
+      font-family: 'StudioSans';
+      src: local('PingFang SC'), local('Noto Sans SC'), local('Microsoft YaHei'), local('Helvetica Neue'), local('Arial');
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: 'StudioSans';
+      src: local('PingFang SC Semibold'), local('Noto Sans SC Bold'), local('Microsoft YaHei Bold'), local('Helvetica Neue Bold'), local('Arial Bold');
+      font-weight: 600;
+    }
+    @font-face {
+      font-family: 'StudioSans';
+      src: local('PingFang SC Bold'), local('Noto Sans SC Black'), local('Microsoft YaHei Bold'), local('Helvetica Neue Bold'), local('Arial Bold');
+      font-weight: 700;
+    }
+
+    :root {
+      --cream: #faf7f5;
+      --black: #000;
+      --white: #fff;
+      --gray-text: rgba(0,0,0,0.4);
+    }
+
+    body {
+      font-family: 'StudioSans', 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+      background: var(--cream);
+      color: var(--black);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--cream);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .nav-logo:hover { opacity: 0.7; }
+
+    .nav-back {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-text);
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--black); }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 48px 80px;
+    }
+
+    .page-header {
+      margin-bottom: 48px;
+    }
+
+    .page-header h1 {
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+
+    .page-header p {
+      font-size: 16px;
+      color: var(--gray-text);
+      line-height: 1.7;
+    }
+
+    .pricing-section {
+      margin-bottom: 48px;
+    }
+
+    .pricing-section h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--black);
+    }
+
+    .pricing-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 24px;
+    }
+
+    .pricing-table th,
+    .pricing-table td {
+      padding: 16px 20px;
+      text-align: left;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .pricing-table th {
+      background: var(--black);
+      color: var(--white);
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.02em;
+    }
+
+    .pricing-table td {
+      font-size: 15px;
+    }
+
+    .pricing-table tr:hover td {
+      background: rgba(0,0,0,0.02);
+    }
+
+    .pricing-table .price {
+      font-weight: 600;
+      color: var(--black);
+    }
+
+    .pricing-table .description {
+      color: var(--gray-text);
+      font-size: 13px;
+    }
+
+    .notes {
+      background: rgba(0,0,0,0.03);
+      padding: 24px;
+      border-radius: 4px;
+      margin-top: 24px;
+    }
+
+    .notes h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .notes ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .notes li {
+      font-size: 14px;
+      color: var(--gray-text);
+      margin-bottom: 8px;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .notes li::before {
+      content: "·";
+      position: absolute;
+      left: 0;
+      color: var(--black);
+    }
+
+    .contact-cta {
+      margin-top: 48px;
+      padding: 32px;
+      background: var(--black);
+      color: var(--white);
+      text-align: center;
+    }
+
+    .contact-cta h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .contact-cta p {
+      font-size: 15px;
+      opacity: 0.8;
+      margin-bottom: 20px;
+    }
+
+    .contact-cta a {
+      display: inline-block;
+      padding: 12px 32px;
+      background: var(--white);
+      color: var(--black);
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      transition: opacity 0.2s;
+    }
+
+    .contact-cta a:hover {
+      opacity: 0.9;
+    }
+
+    @media (max-width: 960px) {
+      .container { padding: 40px 24px 60px; }
+      .page-header h1 { font-size: 32px; }
+      .pricing-table th,
+      .pricing-table td { padding: 12px 16px; }
+    }
+
+    @media (max-width: 640px) {
+      .container { padding: 32px 20px 48px; }
+      .page-header h1 { font-size: 28px; }
+      .pricing-table { font-size: 14px; }
+      .pricing-table th,
+      .pricing-table td { padding: 10px 12px; display: block; width: 100%; }
+      .pricing-table thead { display: none; }
+      .pricing-table tr { margin-bottom: 16px; display: block; border-bottom: 1px solid rgba(0,0,0,0.1); }
+      .pricing-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        display: block;
+        margin-bottom: 4px;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-logo" onclick="window.location.href='genesis-media.html'">开物传媒</div>
+    <a href="genesis-media.html#pricing" class="nav-back">← 返回报价单</a>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>婚礼摄影报价</h1>
+      <p>记录您人生中最重要的一天，从晨光中的准备到暮色里的誓言。我们的婚礼摄影服务注重真实情感的捕捉，让每一个瞬间都成为永恒的回忆。</p>
+    </div>
+
+    <div class="pricing-section">
+      <h2>婚礼跟拍套餐</h2>
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th>套餐名称</th>
+            <th>服务内容</th>
+            <th>拍摄时长</th>
+            <th>精修张数</th>
+            <th>价格</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="套餐名称"><strong>简约婚礼</strong></td>
+            <td data-label="服务内容">1位摄影师全程跟拍，原片全送</td>
+            <td data-label="拍摄时长">4小时</td>
+            <td data-label="精修张数">30张</td>
+            <td data-label="价格" class="price">¥3,980</td>
+          </tr>
+          <tr>
+            <td data-label="套餐名称"><strong>经典婚礼</strong></td>
+            <td data-label="服务内容">2位摄影师 + 1位摄像师，双机位拍摄，原片全送</td>
+            <td data-label="拍摄时长">8小时</td>
+            <td data-label="精修张数">60张</td>
+            <td data-label="价格" class="price">¥8,800</td>
+          </tr>
+          <tr>
+            <td data-label="套餐名称"><strong>豪华婚礼</strong></td>
+            <td data-label="服务内容">3位摄影师 + 2位摄像师，三机位拍摄，航拍，原片全送</td>
+            <td data-label="拍摄时长">12小时</td>
+            <td data-label="精修张数">120张</td>
+            <td data-label="价格" class="price">¥16,800</td>
+          </tr>
+          <tr>
+            <td data-label="套餐名称"><strong>尊享婚礼</strong></td>
+            <td data-label="服务内容">定制化服务，包含婚前MV、婚纱照、婚礼当天全程记录</td>
+            <td data-label="拍摄时长">全天</td>
+            <td data-label="精修张数">200张+</td>
+            <td data-label="价格" class="price">¥28,800起</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pricing-section">
+      <h2>婚前准备拍摄</h2>
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th>项目</th>
+            <th>服务内容</th>
+            <th>拍摄时长</th>
+            <th>价格</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="项目"><strong>婚纱照</strong></td>
+            <td data-label="服务内容">室内 + 室外双场景拍摄，含服装造型2组</td>
+            <td data-label="拍摄时长">4小时</td>
+            <td data-label="价格" class="price">¥5,800</td>
+          </tr>
+          <tr>
+            <td data-label="项目"><strong>婚前MV</strong></td>
+            <td data-label="服务内容">爱情故事短片，含脚本撰写、拍摄、后期剪辑</td>
+            <td data-label="拍摄时长">1天</td>
+            <td data-label="价格" class="price">¥12,000</td>
+          </tr>
+          <tr>
+            <td data-label="项目"><strong>领证跟拍</strong></td>
+            <td data-label="服务内容">民政局领证全程记录，精修15张</td>
+            <td data-label="拍摄时长">2小时</td>
+            <td data-label="价格" class="price">¥1,980</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pricing-section">
+      <h2>附加服务</h2>
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th>项目</th>
+            <th>说明</th>
+            <th>价格</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="项目"><strong>精修加购</strong></td>
+            <td data-label="说明">超出套餐精修张数，按张计费</td>
+            <td data-label="价格" class="price">¥80/张</td>
+          </tr>
+          <tr>
+            <td data-label="项目"><strong>加班费</strong></td>
+            <td data-label="说明">超出套餐拍摄时长，按小时计费</td>
+            <td data-label="价格" class="price">¥500/小时</td>
+          </tr>
+          <tr>
+            <td data-label="项目"><strong>航拍服务</strong></td>
+            <td data-label="说明">无人机航拍，含后期剪辑</td>
+            <td data-label="价格" class="price">¥3,000</td>
+          </tr>
+          <tr>
+            <td data-label="项目"><strong>相册定制</strong></td>
+            <td data-label="说明">12寸精装相册，20页</td>
+            <td data-label="价格" class="price">¥1,200</td>
+          </tr>
+          <tr>
+            <td data-label="项目"><strong>快剪视频</strong></td>
+            <td data-label="说明">婚礼当天30秒快剪，可用于朋友圈分享</td>
+            <td data-label="价格" class="price">¥2,000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="notes">
+      <h3>温馨提示</h3>
+      <ul>
+        <li>所有套餐均包含拍摄前的方案沟通与场景确认</li>
+        <li>精修照片在拍摄完成后15个工作日内交付</li>
+        <li>原片在拍摄完成后7个工作日内通过云盘交付</li>
+        <li>如需异地拍摄，差旅费用另计</li>
+        <li>节假日及婚礼旺季（5月、10月）建议提前3个月预约</li>
+        <li>定金为套餐价格的30%，尾款在拍摄当天付清</li>
+      </ul>
+    </div>
+
+    <div class="contact-cta">
+      <h3>预约婚礼摄影</h3>
+      <p>让我们为您记录人生中最珍贵的时刻</p>
+      <a href="genesis-media.html#contact">立即咨询</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>视频制作报价 — 开物传媒</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @font-face {
+      font-family: 'StudioSans';
+      src: local('PingFang SC'), local('Noto Sans SC'), local('Microsoft YaHei'), local('Helvetica Neue'), local('Arial');
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: 'StudioSans';
+      src: local('PingFang SC Semibold'), local('Noto Sans SC Bold'), local('Microsoft YaHei Bold'), local('Helvetica Neue Bold'), local('Arial Bold');
+      font-weight: 600;
+    }
+    @font-face {
+      font-family: 'StudioSans';
+      src: local('PingFang SC Bold'), local('Noto Sans SC Black'), local('Microsoft YaHei Bold'), local('Helvetica Neue Bold'), local('Arial Bold');
+      font-weight: 700;
+    }
+
+    :root {
+      --cream: #faf7f5;
+      --black: #000;
+      --white: #fff;
+      --gray-text: rgba(0,0,0,0.4);
+    }
+
+    body {
+      font-family: 'StudioSans', 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+      background: var(--cream);
+      color: var(--black);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--cream);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .nav-logo:hover { opacity: 0.7; }
+
+    .nav-back {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-text);
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--black); }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 48px 80px;
+    }
+
+    .page-header {
+      margin-bottom: 48px;
+    }
+
+    .page-header h1 {
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+
+    .page-header p {
+      font-size: 16px;
+      color: var(--gray-text);
+      line-height: 1.7;
+    }
+
+    .pricing-section {
+      margin-bottom: 48px;
+    }
+
+    .pricing-section h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--black);
+    }
+
+    .pricing-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 24px;
+    }
+
+    .pricing-table th,
+    .pricing-table td {
+      padding: 16px 20px;
+      text-align: left;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .pricing-table th {
+      background: var(--black);
+      color: var(--white);
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.02em;
+    }
+
+    .pricing-table td {
+      font-size: 15px;
+    }
+
+    .pricing-table tr:hover td {
+      background: rgba(0,0,0,0.02);
+    }
+
+    .pricing-table .price {
+      font-weight: 600;
+      color: var(--black);
+    }
+
+    .notes {
+      background: rgba(0,0,0,0.03);
+      padding: 24px;
+      border-radius: 4px;
+      margin-top: 24px;
+    }
+
+    .notes h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .notes ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .notes li {
+      font-size: 14px;
+      color: var(--gray-text);
+      margin-bottom: 8px;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .notes li::before {
+      content: "·";
+      position: absolute;
+      left: 0;
+      color: var(--black);
+    }
+
+    .contact-cta {
+      margin-top: 48px;
+      padding: 32px;
+      background: var(--black);
+      color: var(--white);
+      text-align: center;
+    }
+
+    .contact-cta h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .contact-cta p {
+      font-size: 15px;
+      opacity: 0.8;
+      margin-bottom: 20px;
+    }
+
+    .contact-cta a {
+      display: inline-block;
+      padding: 12px 32px;
+      background: var(--white);
+      color: var(--black);
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      transition: opacity 0.2s;
+    }
+
+    .contact-cta a:hover {
+      opacity: 0.9;
+    }
+
+    @media (max-width: 960px) {
+      .container { padding: 40px 24px 60px; }
+      .page-header h1 { font-size: 32px; }
+      .pricing-table th,
+      .pricing-table td { padding: 12px 16px; }
+    }
+
+    @media (max-width: 640px) {
+      .container { padding: 32px 20px 48px; }
+      .page-header h1 { font-size: 28px; }
+      .pricing-table { font-size: 14px; }
+      .pricing-table th,
+      .pricing-table td { padding: 10px 12px; display: block; width: 100%; }
+      .pricing-table thead { display: none; }
+      .pricing-table tr { margin-bottom: 16px; display: block; border-bottom: 1px solid rgba(0,0,0,0.1); }
+      .pricing-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        display: block;
+        margin-bottom: 4px;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-logo" onclick="window.location.href='genesis-media.html'">开物传媒</div>
+    <a href="genesis-media.html#pricing" class="nav-back">← 返回报价单</a>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>视频制作报价</h1>
+      <p>专业视频内容制作，助力品牌传播。我们提供从创意策划到后期制作的一站式视频服务，涵盖宣传片、短视频、直播等多种形式。</p>
+    </div>
+
+    <div class="pricing-section">
+      <h2>企业宣传片</h2>
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th>套餐名称</th>
+            <th>服务内容</th>
+            <th>成片时长</th>
+            <th>制作周期</th>
+            <th>价格</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="套餐名称"><strong>基础宣传片</strong></td>
+            <td data-label="服务内容">企业介绍、产品展示，含脚本撰写</td>
+            <td data-label="成片时长">2-3分钟</td>
+            <td data-label="制作周期">15天</td>
+            <td data-label="价格" class="price">¥18,000</td>
+          </tr>
+          <tr>
+            <td data-label="套餐名称"><strong>标准宣传片</strong></td>
+            <td data-label="服务内容">品牌形象片，含采访、实拍、动画</td>
+            <td data-label="成片时长">3-5分钟</td>
+            <td data-label="制作周期">25天</td>
+            <td data-label="价格" class="price">¥35,000</td>
+          </tr>
+          <tr>
+            <td data-label="套餐名称"><strong>高端宣传片</strong></td>
+            <td data-label="服务内容">创意叙事，含航拍、演员、多场景拍摄</td>
+            <td data-label="成片时长">5-8分钟</td>
+            <td data-label="制作周期">35天</td>
+            <td data-label="价格" class="price">¥68,000</td>
+          </tr>
+          <tr>
+            <td data-label="套餐名称"><strong>系列宣传片</strong></td>
+            <td data-label="服务内容">多集系列，适合品牌故事、产品线介绍</td>
+            <td data-label="成片时长">单集3分钟×3集</td>
+            <td data-label="制作周期">45天</td>
+            <td data-label="价格" class="price">¥88,000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pricing-section">
+      <h2>短视频制作</h2>
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th>类型</th>
+            <th>服务内容</th>
+            <th>成片时长</th>
+            <th>交付数量</th>
+            <th>价格</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="类型"><strong>产品短视频</strong></td>
+            <td data-label="服务内容">产品展示、卖点讲解，适合电商</td>
+            <td data-label="成片时长">15-30秒</td>
+            <td data-label="交付数量">1条</td>
+            <td data-label="价格" class="price">¥3,800</td>
+          </tr>
+          <tr>
+            <td data-label="类型"><strong>品牌短视频</strong></td>
+            <td data-label="服务内容">品牌故事、理念传达，适合社交媒体</td>
+            <td data-label="成片时长">30-60秒</td>
+            <td data-label="交付数量">1条</td>
+            <td data-label="价格" class="price">¥6,800</td>
+          </tr>
+          <tr>
+            <td data-label="类型"><strong>创意短视频</strong></td>
+            <td data-label="服务内容">剧情类、搞笑类、情感类等创意内容</td>
+            <td data-label="成片时长">1-3分钟</td>
+            <td data-label="交付数量">1条</td>
+            <td data-label="价格" class="price">¥12,000</td>
+          </tr>
+          <tr>
+            <td data-label="类型"><strong>短视频套餐</strong></td>
+            <td data-label="服务内容">批量制作，统一风格，适合账号运营</td>
+            <td data-label="成片时长">15-60秒</td>
+            <td data-label="交付数量">10条</td>
+            <td data-label="价格" class="price">¥28,000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pricing-section">
+      <h2>活动纪录片</h2>
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th>套餐名称</th>
+            <th>服务内容</th>
+            <th>成片时长</th>
+            <th>拍摄天数</th>
+            <th>价格</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="套餐名称"><strong>单日活动</strong></td>
+            <td data-label="服务内容">会议、论坛、发布会全程记录</td>
+            <td data-label="成片时长">3-5分钟</td>
+            <td data-label="拍摄天数">1天</td>
+            <td data-label="价格" class="price">¥8,800</td>
+          </tr>
+          <tr>
+            <td data-label="套餐名称"><strong>多日活动</strong></td>
+            <td data-label="服务内容">展览、培训、团建等多日活动</td>
+            <td data-label="成片时长">5-8分钟</td>
+            <td data-label="拍摄天数">3天</td>
+            <td data-label="价格" class="price">¥22,000</td>
+          </tr>
+          <tr>
+            <td data-label="套餐名称"><strong>大型活动</strong></td>
+            <td data-label="服务内容">行业峰会、年会等大型活动</td>
+            <td data-label="成片时长">8-12分钟</td>
+            <td data-label="拍摄天数">5天</td>
+            <td data-label="价格" class="price">¥45,000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pricing-section">
+      <h2>直播服务</h2>
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th>服务类型</th>
+            <th>服务内容</th>
+            <th>时长</th>
+            <th>机位数量</th>
+            <th>价格</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="服务类型"><strong>单机位直播</strong></td>
+            <td data-label="服务内容">单平台直播，含推流技术支持</td>
+            <td data-label="时长">3小时</td>
+            <td data-label="机位数量">1</td>
+            <td data-label="价格" class="price">¥3,800</td>
+          </tr>
+          <tr>
+            <td data-label="服务类型"><strong>多机位直播</strong></td>
+            <td data-label="服务内容">多平台同步，含导播、字幕</td>
+            <td data-label="时长">4小时</td>
+            <td data-label="机位数量">3</td>
+            <td data-label="价格" class="price">¥8,800</td>
+          </tr>
+          <tr>
+            <td data-label="服务类型"><strong>专业直播</strong></td>
+            <td data-label="服务内容">大型活动直播，含航拍、AR特效</td>
+            <td data-label="时长">6小时</td>
+            <td data-label="机位数量">5</td>
+            <td data-label="价格" class="price">¥18,000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pricing-section">
+      <h2>附加服务</h2>
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th>项目</th>
+            <th>说明</th>
+            <th>价格</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="项目"><strong>脚本撰写</strong></td>
+            <td data-label="说明">专业编剧撰写拍摄脚本</td>
+            <td data-label="价格" class="price">¥3,000-8,000</td>
+          </tr>
+          <tr>
+            <td data-label="项目"><strong>动画制作</strong></td>
+            <td data-label="说明">2D/3D动画、MG动画</td>
+            <td data-label="价格" class="price">¥500/秒起</td>
+          </tr>
+          <tr>
+            <td data-label="项目"><strong>航拍服务</strong></td>
+            <td data-label="说明">无人机航拍，含后期调色</td>
+            <td data-label="价格" class="price">¥3,000</td>
+          </tr>
+          <tr>
+            <td data-label="项目"><strong>演员模特</strong></td>
+            <td data-label="说明">专业演员、模特拍摄</td>
+            <td data-label="价格" class="price">¥2,000-10,000/人</td>
+          </tr>
+          <tr>
+            <td data-label="项目"><strong>配乐版权</strong></td>
+            <td data-label="说明">正版音乐授权</td>
+            <td data-label="价格" class="price">¥500-3,000/首</td>
+          </tr>
+          <tr>
+            <td data-label="项目"><strong>多语言版本</strong></td>
+            <td data-label="说明">配音、字幕多语言制作</td>
+            <td data-label="价格" class="price">¥3,000/语言</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="notes">
+      <h3>温馨提示</h3>
+      <ul>
+        <li>视频制作需提前沟通需求，确定脚本后再进行拍摄</li>
+        <li>报价包含前期策划、现场拍摄、后期剪辑、调色、字幕</li>
+        <li>成片修改次数为3次，超出部分按¥500/次计费</li>
+        <li>交付格式为4K/1080P MP4，如需其他格式请提前说明</li>
+        <li>如需延期拍摄，需提前3天通知，否则产生空档费</li>
+        <li>项目启动需支付50%定金，成片确认后支付尾款</li>
+        <li>版权归属：企业宣传片版权归客户所有，可自由使用</li>
+      </ul>
+    </div>
+
+    <div class="contact-cta">
+      <h3>视频制作咨询</h3>
+      <p>专业团队，打造高品质视频内容</p>
+      <a href="genesis-media.html#contact">立即咨询</a>
+    </div>
+  </div>
+</body>
+</html>

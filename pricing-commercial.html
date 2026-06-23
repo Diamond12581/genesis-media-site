@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>商业摄影报价 — 开物传媒</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @font-face {
+      font-family: 'StudioSans';
+      src: local('PingFang SC'), local('Noto Sans SC'), local('Microsoft YaHei'), local('Helvetica Neue'), local('Arial');
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: 'StudioSans';
+      src: local('PingFang SC Semibold'), local('Noto Sans SC Bold'), local('Microsoft YaHei Bold'), local('Helvetica Neue Bold'), local('Arial Bold');
+      font-weight: 600;
+    }
+    @font-face {
+      font-family: 'StudioSans';
+      src: local('PingFang SC Bold'), local('Noto Sans SC Black'), local('Microsoft YaHei Bold'), local('Helvetica Neue Bold'), local('Arial Bold');
+      font-weight: 700;
+    }
+
+    :root {
+      --cream: #faf7f5;
+      --black: #000;
+      --white: #fff;
+      --gray-text: rgba(0,0,0,0.4);
+    }
+
+    body {
+      font-family: 'StudioSans', 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+      background: var(--cream);
+      color: var(--black);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--cream);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .nav-logo:hover { opacity: 0.7; }
+
+    .nav-back {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-text);
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--black); }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 48px 80px;
+    }
+
+    .page-header {
+      margin-bottom: 48px;
+    }
+
+    .page-header h1 {
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+
+    .page-header p {
+      font-size: 16px;
+      color: var(--gray-text);
+      line-height: 1.7;
+    }
+
+    .pricing-section {
+      margin-bottom: 48px;
+    }
+
+    .pricing-section h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--black);
+    }
+
+    .pricing-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 24px;
+    }
+
+    .pricing-table th,
+    .pricing-table td {
+      padding: 16px 20px;
+      text-align: left;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .pricing-table th {
+      background: var(--black);
+      color: var(--white);
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.02em;
+    }
+
+    .pricing-table td {
+      font-size: 15px;
+    }
+
+    .pricing-table tr:hover td {
+      background: rgba(0,0,0,0.02);
+    }
+
+    .pricing-table .price {
+      font-weight: 600;
+      color: var(--black);
+    }
+
+    .notes {
+      background: rgba(0,0,0,0.03);
+      padding: 24px;
+      border-radius: 4px;
+      margin-top: 24px;
+    }
+
+    .notes h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .notes ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .notes li {
+      font-size: 14px;
+      color: var(--gray-text);
+      margin-bottom: 8px;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .notes li::before {
+      content: "·";
+      position: absolute;
+      left: 0;
+      color: var(--black);
+    }
+
+    .contact-cta {
+      margin-top: 48px;
+      padding: 32px;
+      background: var(--black);
+      color: var(--white);
+      text-align: center;
+    }
+
+    .contact-cta h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .contact-cta p {
+      font-size: 15px;
+      opacity: 0.8;
+      margin-bottom: 20px;
+    }
+
+    .contact-cta a {
+      display: inline-block;
+      padding: 12px 32px;
+      background: var(--white);
+      color: var(--black);
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      transition: opacity 0.2s;
+    }
+
+    .contact-cta a:hover {
+      opacity: 0.9;
+    }
+
+    @media (max-width: 960px) {
+      .container { padding: 40px 24px 60px; }
+      .page-header h1 { font-size: 32px; }
+      .pricing-table th,
+      .pricing-table td { padding: 12px 16px; }
+    }
+
+    @media (max-width: 640px) {
+      .container { padding: 32px 20px 48px; }
+      .page-header h1 { font-size: 28px; }
+      .pricing-table { font-size: 14px; }
+      .pricing-table th,
+      .pricing-table td { padding: 10px 12px; display: block; width: 100%; }
+      .pricing-table thead { display: none; }
+      .pricing-table tr { margin-bottom: 16px; display: block; border-bottom: 1px solid rgba(0,0,0,0.1); }
+      .pricing-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        display: block;
+        margin-bottom: 4px;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-logo" onclick="window.location.href='genesis-media.html'">开物传媒</div>
+    <a href="genesis-media.html#pricing" class="nav-back">← 返回报价单</a>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>商业摄影报价</h1>
+      <p>为品牌打造高质感视觉内容，助力企业形象升级。我们的商业摄影服务涵盖产品、团队、空间等多个维度，以专业视角呈现品牌价值。</p>
+    </div>
+
+    <div class="pricing-section">
+      <h2>产品摄影</h2>
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th>套餐名称</th>
+            <th>服务内容</th>
+            <th>产品数量</th>
+            <th>精修张数</th>
+            <th>价格</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="套餐名称"><strong>基础产品</strong></td>
+            <td data-label="服务内容">白底产品图，适合电商平台</td>
+            <td data-label="产品数量">10件以内</td>
+            <td data-label="精修张数">每件3张</td>
+            <td data-label="价格" class="price">¥3,000</td>
+          </tr>
+          <tr>
+            <td data-label="套餐名称"><strong>场景产品</strong></td>
+            <td data-label="服务内容">场景化产品拍摄，含道具布置</td>
+            <td data-label="产品数量">5件以内</td>
+            <td data-label="精修张数">每件5张</td>
+            <td data-label="价格" class="price">¥5,800</td>
+          </tr>
+          <tr>
+            <td data-label="套餐名称"><strong>高端产品</strong></td>
+            <td data-label="服务内容">创意产品拍摄，含艺术指导、场景搭建</td>
+            <td data-label="产品数量">3件以内</td>
+            <td data-label="精修张数">每件8张</td>
+            <td data-label="价格" class="price">¥12,000</td>
+          </tr>
+          <tr>
+            <td data-label="套餐名称"><strong>批量拍摄</strong></td>
+            <td data-label="服务内容">大量产品统一风格拍摄，适合产品线更新</td>
+            <td data-label="产品数量">50件起</td>
+            <td data-label="精修张数">每件2张</td>
+            <td data-label="价格" class="price">¥150/件</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pricing-section">
+      <h2>团队形象照</h2>
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th>套餐名称</th>
+            <th>服务内容</th>
+            <th>人数</th>
+            <th>精修张数</th>
+            <th>价格</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="套餐名称"><strong>小型团队</strong></td>
+            <td data-label="服务内容">统一背景拍摄，含简单修图</td>
+            <td data-label="人数">10人以内</td>
+            <td data-label="精修张数">每人2张</td>
+            <td data-label="价格" class="price">¥3,800</td>
+          </tr>
+          <tr>
+            <td data-label="套餐名称"><strong>中型团队</strong></td>
+            <td data-label="服务内容">多场景拍摄，含团队合影</td>
+            <td data-label="人数">20人以内</td>
+            <td data-label="精修张数">每人3张</td>
+            <td data-label="价格" class="price">¥8,800</td>
+          </tr>
+          <tr>
+            <td data-label="套餐名称"><strong>大型团队</strong></td>
+            <td data-label="服务内容">企业级拍摄，含场地布置、服装指导</td>
+            <td data-label="人数">50人以内</td>
+            <td data-label="精修张数">每人3张</td>
+            <td data-label="价格" class="price">¥18,800</td>
+          </tr>
+          <tr>
+            <td data-label="套餐名称"><strong>高管形象</strong></td>
+            <td data-label="服务内容">个性化形象照，含妆造、多场景切换</td>
+            <td data-label="人数">1人</td>
+            <td data-label="精修张数">10张</td>
+            <td data-label="价格" class="price">¥2,800</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pricing-section">
+      <h2>空间摄影</h2>
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th>套餐名称</th>
+            <th>服务内容</th>
+            <th>空间面积</th>
+            <th>精修张数</th>
+            <th>价格</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="套餐名称"><strong>小型空间</strong></td>
+            <td data-label="服务内容">办公室、小型店铺拍摄</td>
+            <td data-label="空间面积">100㎡以内</td>
+            <td data-label="精修张数">15张</td>
+            <td data-label="价格" class="price">¥3,500</td>
+          </tr>
+          <tr>
+            <td data-label="套餐名称"><strong>中型空间</strong></td>
+            <td data-label="服务内容">餐厅、健身房、展厅等拍摄</td>
+            <td data-label="空间面积">300㎡以内</td>
+            <td data-label="精修张数">30张</td>
+            <td data-label="价格" class="price">¥6,800</td>
+          </tr>
+          <tr>
+            <td data-label="套餐名称"><strong>大型空间</strong></td>
+            <td data-label="服务内容">酒店、商场、大型场馆拍摄</td>
+            <td data-label="空间面积">1000㎡以内</td>
+            <td data-label="精修张数">60张</td>
+            <td data-label="价格" class="price">¥15,800</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="notes">
+      <h3>温馨提示</h3>
+      <ul>
+        <li>所有报价均为标准场景拍摄，复杂场景或特殊需求需另行报价</li>
+        <li>产品拍摄包含基础修图，如需精修按¥80/张计费</li>
+        <li>拍摄前需提供产品清单或拍摄需求文档</li>
+        <li>图片交付格式为高清JPEG，如需RAW格式另加20%费用</li>
+        <li>如需模特、场地、道具等资源，费用另计</li>
+        <li>项目周期一般为拍摄后10-15个工作日交付</li>
+      </ul>
+    </div>
+
+    <div class="contact-cta">
+      <h3>商业摄影咨询</h3>
+      <p>专业团队为您的品牌打造视觉内容</p>
+      <a href="genesis-media.html#contact">立即咨询</a>
+    </div>
+  </div>
+</body>
+</html>

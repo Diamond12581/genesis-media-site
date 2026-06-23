@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>活动摄影报价 — 开物传媒</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @font-face {
+      font-family: 'StudioSans';
+      src: local('PingFang SC'), local('Noto Sans SC'), local('Microsoft YaHei'), local('Helvetica Neue'), local('Arial');
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: 'StudioSans';
+      src: local('PingFang SC Semibold'), local('Noto Sans SC Bold'), local('Microsoft YaHei Bold'), local('Helvetica Neue Bold'), local('Arial Bold');
+      font-weight: 600;
+    }
+    @font-face {
+      font-family: 'StudioSans';
+      src: local('PingFang SC Bold'), local('Noto Sans SC Black'), local('Microsoft YaHei Bold'), local('Helvetica Neue Bold'), local('Arial Bold');
+      font-weight: 700;
+    }
+
+    :root {
+      --cream: #faf7f5;
+      --black: #000;
+      --white: #fff;
+      --gray-text: rgba(0,0,0,0.4);
+    }
+
+    body {
+      font-family: 'StudioSans', 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+      background: var(--cream);
+      color: var(--black);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--cream);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .nav-logo:hover { opacity: 0.7; }
+
+    .nav-back {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-text);
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--black); }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 48px 80px;
+    }
+
+    .page-header {
+      margin-bottom: 48px;
+    }
+
+    .page-header h1 {
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+
+    .page-header p {
+      font-size: 16px;
+      color: var(--gray-text);
+      line-height: 1.7;
+    }
+
+    .pricing-section {
+      margin-bottom: 48px;
+    }
+
+    .pricing-section h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--black);
+    }
+
+    .pricing-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 24px;
+    }
+
+    .pricing-table th,
+    .pricing-table td {
+      padding: 16px 20px;
+      text-align: left;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .pricing-table th {
+      background: var(--black);
+      color: var(--white);
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.02em;
+    }
+
+    .pricing-table td {
+      font-size: 15px;
+    }
+
+    .pricing-table tr:hover td {
+      background: rgba(0,0,0,0.02);
+    }
+
+    .pricing-table .price {
+      font-weight: 600;
+      color: var(--black);
+    }
+
+    .notes {
+      background: rgba(0,0,0,0.03);
+      padding: 24px;
+      border-radius: 4px;
+      margin-top: 24px;
+    }
+
+    .notes h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .notes ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .notes li {
+      font-size: 14px;
+      color: var(--gray-text);
+      margin-bottom: 8px;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .notes li::before {
+      content: "·";
+      position: absolute;
+      left: 0;
+      color: var(--black);
+    }
+
+    .contact-cta {
+      margin-top: 48px;
+      padding: 32px;
+      background: var(--black);
+      color: var(--white);
+      text-align: center;
+    }
+
+    .contact-cta h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .contact-cta p {
+      font-size: 15px;
+      opacity: 0.8;
+      margin-bottom: 20px;
+    }
+
+    .contact-cta a {
+      display: inline-block;
+      padding: 12px 32px;
+      background: var(--white);
+      color: var(--black);
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      transition: opacity 0.2s;
+    }
+
+    .contact-cta a:hover {
+      opacity: 0.9;
+    }
+
+    @media (max-width: 960px) {
+      .container { padding: 40px 24px 60px; }
+      .page-header h1 { font-size: 32px; }
+      .pricing-table th,
+      .pricing-table td { padding: 12px 16px; }
+    }
+
+    @media (max-width: 640px) {
+      .container { padding: 32px 20px 48px; }
+      .page-header h1 { font-size: 28px; }
+      .pricing-table { font-size: 14px; }
+      .pricing-table th,
+      .pricing-table td { padding: 10px 12px; display: block; width: 100%; }
+      .pricing-table thead { display: none; }
+      .pricing-table tr { margin-bottom: 16px; display: block; border-bottom: 1px solid rgba(0,0,0,0.1); }
+      .pricing-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        display: block;
+        margin-bottom: 4px;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-logo" onclick="window.location.href='genesis-media.html'">开物传媒</div>
+    <a href="genesis-media.html#pricing" class="nav-back">← 返回报价单</a>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>活动摄影报价</h1>
+      <p>捕捉活动中的每一个精彩瞬间。无论是企业会议、文艺演出、艺术展览还是庆典活动，我们都能为您提供专业的摄影记录服务。</p>
+    </div>
+
+    <div class="pricing-section">
+      <h2>会议论坛</h2>
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th>套餐名称</th>
+            <th>服务内容</th>
+            <th>拍摄时长</th>
+            <th>精修张数</th>
+            <th>价格</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="套餐名称"><strong>小型会议</strong></td>
+            <td data-label="服务内容">单机位拍摄，含签到、演讲、合影</td>
+            <td data-label="拍摄时长">3小时</td>
+            <td data-label="精修张数">50张</td>
+            <td data-label="价格" class="price">¥2,800</td>
+          </tr>
+          <tr>
+            <td data-label="套餐名称"><strong>中型论坛</strong></td>
+            <td data-label="服务内容">双机位拍摄，含全景、特写、花絮</td>
+            <td data-label="拍摄时长">6小时</td>
+            <td data-label="精修张数">100张</td>
+            <td data-label="价格" class="price">¥5,800</td>
+          </tr>
+          <tr>
+            <td data-label="套餐名称"><strong>大型峰会</strong></td>
+            <td data-label="服务内容">三机位拍摄，含航拍、实时直播支持</td>
+            <td data-label="拍摄时长">全天</td>
+            <td data-label="精修张数">200张</td>
+            <td data-label="价格" class="price">¥12,000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pricing-section">
+      <h2>文艺演出</h2>
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th>套餐名称</th>
+            <th>服务内容</th>
+            <th>演出时长</th>
+            <th>精修张数</th>
+            <th>价格</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="套餐名称"><strong>小型演出</strong></td>
+            <td data-label="服务内容">单机位拍摄，适合话剧、音乐会等</td>
+            <td data-label="演出时长">2小时内</td>
+            <td data-label="精修张数">40张</td>
+            <td data-label="价格" class="price">¥2,200</td>
+          </tr>
+          <tr>
+            <td data-label="套餐名称"><strong>中型演出</strong></td>
+            <td data-label="服务内容">双机位拍摄，含后台花絮</td>
+            <td data-label="演出时长">3小时内</td>
+            <td data-label="精修张数">80张</td>
+            <td data-label="价格" class="price">¥4,500</td>
+          </tr>
+          <tr>
+            <td data-label="套餐名称"><strong>大型演出</strong></td>
+            <td data-label="服务内容">多机位拍摄，含灯光配合、高清抓拍</td>
+            <td data-label="演出时长">4小时内</td>
+            <td data-label="精修张数">150张</td>
+            <td data-label="价格" class="price">¥8,800</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pricing-section">
+      <h2>展览活动</h2>
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th>套餐名称</th>
+            <th>服务内容</th>
+            <th>展览规模</th>
+            <th>精修张数</th>
+            <th>价格</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="套餐名称"><strong>小型展览</strong></td>
+            <td data-label="服务内容">展品细节拍摄，空间全景记录</td>
+            <td data-label="展览规模">50件展品内</td>
+            <td data-label="精修张数">60张</td>
+            <td data-label="价格" class="price">¥3,800</td>
+          </tr>
+          <tr>
+            <td data-label="套餐名称"><strong>中型展览</strong></td>
+            <td data-label="服务内容">全方位记录，含开幕活动拍摄</td>
+            <td data-label="展览规模">100件展品内</td>
+            <td data-label="精修张数">120张</td>
+            <td data-label="价格" class="price">¥7,800</td>
+          </tr>
+          <tr>
+            <td data-label="套餐名称"><strong>大型展览</strong></td>
+            <td data-label="服务内容">多日拍摄，含策展人访谈、观众互动</td>
+            <td data-label="展览规模">200件展品内</td>
+            <td data-label="精修张数">250张</td>
+            <td data-label="价格" class="price">¥18,000</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pricing-section">
+      <h2>庆典活动</h2>
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th>活动类型</th>
+            <th>服务内容</th>
+            <th>拍摄时长</th>
+            <th>精修张数</th>
+            <th>价格</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="活动类型"><strong>生日派对</strong></td>
+            <td data-label="服务内容">全程记录，含布置、互动、合影</td>
+            <td data-label="拍摄时长">3小时</td>
+            <td data-label="精修张数">50张</td>
+            <td data-label="价格" class="price">¥2,680</td>
+          </tr>
+          <tr>
+            <td data-label="活动类型"><strong>公司年会</strong></td>
+            <td data-label="服务内容">双机位拍摄，含表演、颁奖、合影</td>
+            <td data-label="拍摄时长">4小时</td>
+            <td data-label="精修张数">100张</td>
+            <td data-label="价格" class="price">¥5,800</td>
+          </tr>
+          <tr>
+            <td data-label="活动类型"><strong>开业庆典</strong></td>
+            <td data-label="服务内容">含仪式、剪彩、嘉宾互动</td>
+            <td data-label="拍摄时长">4小时</td>
+            <td data-label="精修张数">80张</td>
+            <td data-label="价格" class="price">¥4,800</td>
+          </tr>
+          <tr>
+            <td data-label="活动类型"><strong>发布会</strong></td>
+            <td data-label="服务内容">产品发布全程记录，含媒体拍摄</td>
+            <td data-label="拍摄时长">5小时</td>
+            <td data-label="精修张数">120张</td>
+            <td data-label="价格" class="price">¥8,800</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pricing-section">
+      <h2>附加服务</h2>
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th>项目</th>
+            <th>说明</th>
+            <th>价格</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="项目"><strong>加班费</strong></td>
+            <td data-label="说明">超出套餐时长，按小时计费</td>
+            <td data-label="价格" class="price">¥400/小时</td>
+          </tr>
+          <tr>
+            <td data-label="项目"><strong>航拍服务</strong></td>
+            <td data-label="说明">无人机航拍，含后期剪辑</td>
+            <td data-label="价格" class="price">¥3,000</td>
+          </tr>
+          <tr>
+            <td data-label="项目"><strong>加急修图</strong></td>
+            <td data-label="说明">48小时内交付精修照片</td>
+            <td data-label="价格" class="price">+50%</td>
+          </tr>
+          <tr>
+            <td data-label="项目"><strong>现场直播</strong></td>
+            <td data-label="说明">多平台同步直播，含技术支持</td>
+            <td data-label="价格" class="price">¥5,000</td>
+          </tr>
+          <tr>
+            <td data-label="项目"><strong>视频花絮</strong></td>
+            <td data-label="说明">3-5分钟活动花絮视频</td>
+            <td data-label="价格" class="price">¥3,500</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="notes">
+      <h3>温馨提示</h3>
+      <ul>
+        <li>活动摄影建议提前1-2周预约，以便确认拍摄方案</li>
+        <li>拍摄前需提供活动流程表，确保不遗漏重要环节</li>
+        <li>精修照片在活动结束后5-10个工作日内交付</li>
+        <li>如活动在室外或光线复杂的场地，可能需要额外灯光设备</li>
+        <li>大型活动建议安排现场踩点，确保拍摄效果</li>
+        <li>定金为报价的30%，活动前7天可免费改期</li>
+      </ul>
+    </div>
+
+    <div class="contact-cta">
+      <h3>预约活动摄影</h3>
+      <p>专业记录，精彩瞬间不遗漏</p>
+      <a href="genesis-media.html#contact">立即咨询</a>
+    </div>
+  </div>
+</body>
+</html>

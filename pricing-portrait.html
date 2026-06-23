@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>个人写真报价 — 开物传媒</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @font-face {
+      font-family: 'StudioSans';
+      src: local('PingFang SC'), local('Noto Sans SC'), local('Microsoft YaHei'), local('Helvetica Neue'), local('Arial');
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: 'StudioSans';
+      src: local('PingFang SC Semibold'), local('Noto Sans SC Bold'), local('Microsoft YaHei Bold'), local('Helvetica Neue Bold'), local('Arial Bold');
+      font-weight: 600;
+    }
+    @font-face {
+      font-family: 'StudioSans';
+      src: local('PingFang SC Bold'), local('Noto Sans SC Black'), local('Microsoft YaHei Bold'), local('Helvetica Neue Bold'), local('Arial Bold');
+      font-weight: 700;
+    }
+
+    :root {
+      --cream: #faf7f5;
+      --black: #000;
+      --white: #fff;
+      --gray-text: rgba(0,0,0,0.4);
+    }
+
+    body {
+      font-family: 'StudioSans', 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+      background: var(--cream);
+      color: var(--black);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--cream);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .nav-logo:hover { opacity: 0.7; }
+
+    .nav-back {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-text);
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--black); }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 48px 80px;
+    }
+
+    .page-header {
+      margin-bottom: 48px;
+    }
+
+    .page-header h1 {
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 12px;
+    }
+
+    .page-header p {
+      font-size: 16px;
+      color: var(--gray-text);
+      line-height: 1.7;
+    }
+
+    .pricing-section {
+      margin-bottom: 48px;
+    }
+
+    .pricing-section h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--black);
+    }
+
+    .pricing-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 24px;
+    }
+
+    .pricing-table th,
+    .pricing-table td {
+      padding: 16px 20px;
+      text-align: left;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .pricing-table th {
+      background: var(--black);
+      color: var(--white);
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.02em;
+    }
+
+    .pricing-table td {
+      font-size: 15px;
+    }
+
+    .pricing-table tr:hover td {
+      background: rgba(0,0,0,0.02);
+    }
+
+    .pricing-table .price {
+      font-weight: 600;
+      color: var(--black);
+    }
+
+    .notes {
+      background: rgba(0,0,0,0.03);
+      padding: 24px;
+      border-radius: 4px;
+      margin-top: 24px;
+    }
+
+    .notes h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .notes ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .notes li {
+      font-size: 14px;
+      color: var(--gray-text);
+      margin-bottom: 8px;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .notes li::before {
+      content: "·";
+      position: absolute;
+      left: 0;
+      color: var(--black);
+    }
+
+    .contact-cta {
+      margin-top: 48px;
+      padding: 32px;
+      background: var(--black);
+      color: var(--white);
+      text-align: center;
+    }
+
+    .contact-cta h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .contact-cta p {
+      font-size: 15px;
+      opacity: 0.8;
+      margin-bottom: 20px;
+    }
+
+    .contact-cta a {
+      display: inline-block;
+      padding: 12px 32px;
+      background: var(--white);
+      color: var(--black);
+      font-weight: 600;
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      transition: opacity 0.2s;
+    }
+
+    .contact-cta a:hover {
+      opacity: 0.9;
+    }
+
+    @media (max-width: 960px) {
+      .container { padding: 40px 24px 60px; }
+      .page-header h1 { font-size: 32px; }
+      .pricing-table th,
+      .pricing-table td { padding: 12px 16px; }
+    }
+
+    @media (max-width: 640px) {
+      .container { padding: 32px 20px 48px; }
+      .page-header h1 { font-size: 28px; }
+      .pricing-table { font-size: 14px; }
+      .pricing-table th,
+      .pricing-table td { padding: 10px 12px; display: block; width: 100%; }
+      .pricing-table thead { display: none; }
+      .pricing-table tr { margin-bottom: 16px; display: block; border-bottom: 1px solid rgba(0,0,0,0.1); }
+      .pricing-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        display: block;
+        margin-bottom: 4px;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-logo" onclick="window.location.href='genesis-media.html'">开物传媒</div>
+    <a href="genesis-media.html#pricing" class="nav-back">← 返回报价单</a>
+  </nav>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>个人写真报价</h1>
+      <p>发现你最好的一面，每张照片都是一次自信的表达。我们提供多种风格的个人写真服务，从艺术写真到证件照，用光影记录真实的你。</p>
+    </div>
+
+    <div class="pricing-section">
+      <h2>艺术写真</h2>
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th>套餐名称</th>
+            <th>服务内容</th>
+            <th>服装造型</th>
+            <th>精修张数</th>
+            <th>价格</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="套餐名称"><strong>清新写真</strong></td>
+            <td data-label="服务内容">单场景拍摄，自然光为主</td>
+            <td data-label="服装造型">1组</td>
+            <td data-label="精修张数">15张</td>
+            <td data-label="价格" class="price">¥1,980</td>
+          </tr>
+          <tr>
+            <td data-label="套餐名称"><strong>文艺写真</strong></td>
+            <td data-label="服务内容">双场景拍摄，含室内外</td>
+            <td data-label="服装造型">2组</td>
+            <td data-label="精修张数">30张</td>
+            <td data-label="价格" class="price">¥3,580</td>
+          </tr>
+          <tr>
+            <td data-label="套餐名称"><strong>高端写真</strong></td>
+            <td data-label="服务内容">多场景拍摄，含创意主题</td>
+            <td data-label="服装造型">3组</td>
+            <td data-label="精修张数">50张</td>
+            <td data-label="价格" class="price">¥5,800</td>
+          </tr>
+          <tr>
+            <td data-label="套餐名称"><strong>定制写真</strong></td>
+            <td data-label="服务内容">完全个性化定制，含脚本创作</td>
+            <td data-label="服装造型">4组+</td>
+            <td data-label="精修张数">80张</td>
+            <td data-label="价格" class="price">¥9,800起</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pricing-section">
+      <h2>证件照 & 形象照</h2>
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th>项目</th>
+            <th>服务内容</th>
+            <th>拍摄张数</th>
+            <th>精修张数</th>
+            <th>价格</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="项目"><strong>标准证件照</strong></td>
+            <td data-label="服务内容">白底/蓝底，含基础修图，电子版+冲印</td>
+            <td data-label="拍摄张数">5张</td>
+            <td data-label="精修张数">1张</td>
+            <td data-label="价格" class="price">¥128</td>
+          </tr>
+          <tr>
+            <td data-label="项目"><strong>高端证件照</strong></td>
+            <td data-label="服务内容">含妆造、精修，多底色可选</td>
+            <td data-label="拍摄张数">10张</td>
+            <td data-label="精修张数">3张</td>
+            <td data-label="价格" class="price">¥398</td>
+          </tr>
+          <tr>
+            <td data-label="项目"><strong>职场形象照</strong></td>
+            <td data-label="服务内容">商务风格拍摄，适合简历、LinkedIn</td>
+            <td data-label="拍摄张数">20张</td>
+            <td data-label="精修张数">5张</td>
+            <td data-label="价格" class="price">¥880</td>
+          </tr>
+          <tr>
+            <td data-label="项目"><strong>社交媒体形象</strong></td>
+            <td data-label="服务内容">个性化形象照，多风格尝试</td>
+            <td data-label="拍摄张数">30张</td>
+            <td data-label="精修张数">10张</td>
+            <td data-label="价格" class="price">¥1,680</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pricing-section">
+      <h2>主题写真</h2>
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th>主题</th>
+            <th>服务内容</th>
+            <th>拍摄时长</th>
+            <th>价格</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="主题"><strong>生日写真</strong></td>
+            <td data-label="服务内容">生日主题布置，含蛋糕道具</td>
+            <td data-label="拍摄时长">2小时</td>
+            <td data-label="价格" class="price">¥2,680</td>
+          </tr>
+          <tr>
+            <td data-label="主题"><strong>毕业写真</strong></td>
+            <td data-label="服务内容">校园场景拍摄，含学士服</td>
+            <td data-label="拍摄时长">3小时</td>
+            <td data-label="价格" class="price">¥2,280</td>
+          </tr>
+          <tr>
+            <td data-label="主题"><strong>复古胶片</strong></td>
+            <td data-label="服务内容">胶片质感风格，老洋房场景</td>
+            <td data-label="拍摄时长">3小时</td>
+            <td data-label="价格" class="price">¥3,280</td>
+          </tr>
+          <tr>
+            <td data-label="主题"><strong>情侣写真</strong></td>
+            <td data-label="服务内容">双人拍摄，记录甜蜜时光</td>
+            <td data-label="拍摄时长">4小时</td>
+            <td data-label="价格" class="price">¥3,880</td>
+          </tr>
+          <tr>
+            <td data-label="主题"><strong>亲子写真</strong></td>
+            <td data-label="服务内容">家庭互动拍摄，温馨自然</td>
+            <td data-label="拍摄时长">3小时</td>
+            <td data-label="价格" class="price">¥2,980</td>
+          </tr>
+          <tr>
+            <td data-label="主题"><strong>孕妈写真</strong></td>
+            <td data-label="服务内容">孕期记录，唯美风格</td>
+            <td data-label="拍摄时长">3小时</td>
+            <td data-label="价格" class="price">¥2,580</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pricing-section">
+      <h2>附加服务</h2>
+      <table class="pricing-table">
+        <thead>
+          <tr>
+            <th>项目</th>
+            <th>说明</th>
+            <th>价格</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="项目"><strong>妆造服务</strong></td>
+            <td data-label="说明">含化妆、发型设计，1组造型</td>
+            <td data-label="价格" class="price">¥300-500</td>
+          </tr>
+          <tr>
+            <td data-label="项目"><strong>精修加购</strong></td>
+            <td data-label="说明">超出套餐精修张数，按张计费</td>
+            <td data-label="价格" class="price">¥60/张</td>
+          </tr>
+          <tr>
+            <td data-label="项目"><strong>加急修图</strong></td>
+            <td data-label="说明">3个工作日内交付</td>
+            <td data-label="价格" class="price">+50%</td>
+          </tr>
+          <tr>
+            <td data-label="项目"><strong>原片全送</strong></td>
+            <td data-label="说明">所有拍摄原片，高清无水印</td>
+            <td data-label="价格" class="price">¥500</td>
+          </tr>
+          <tr>
+            <td data-label="项目"><strong>相册定制</strong></td>
+            <td data-label="说明">10寸精装相册，20页</td>
+            <td data-label="价格" class="price">¥680</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="notes">
+      <h3>温馨提示</h3>
+      <ul>
+        <li>拍摄前会进行风格沟通，确保拍摄效果符合预期</li>
+        <li>艺术写真套餐包含基础妆造，高端套餐包含专业妆造</li>
+        <li>拍摄完成后7-15个工作日内交付精修照片</li>
+        <li>如需指定摄影师，可能需要额外费用</li>
+        <li>周末及节假日拍摄需提前2周预约</li>
+        <li>定金为套餐价格的30%，拍摄前3天可免费改期</li>
+      </ul>
+    </div>
+
+    <div class="contact-cta">
+      <h3>预约个人写真</h3>
+      <p>用光影记录最美的自己</p>
+      <a href="genesis-media.html#contact">立即咨询</a>
+    </div>
+  </div>
+</body>
+</html>
