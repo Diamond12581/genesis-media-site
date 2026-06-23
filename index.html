@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>开物传媒 — From Light, We Create</title>
+  <style>
+    /* ========== Reset & Base ========== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @font-face {
+      font-family: 'StudioSans';
+      src: local('PingFang SC'), local('Noto Sans SC'), local('Microsoft YaHei'), local('Helvetica Neue'), local('Arial');
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: 'StudioSans';
+      src: local('PingFang SC Semibold'), local('Noto Sans SC Bold'), local('Microsoft YaHei Bold'), local('Helvetica Neue Bold'), local('Arial Bold');
+      font-weight: 600;
+    }
+    @font-face {
+      font-family: 'StudioSans';
+      src: local('PingFang SC Bold'), local('Noto Sans SC Black'), local('Microsoft YaHei Bold'), local('Helvetica Neue Bold'), local('Arial Bold');
+      font-weight: 700;
+    }
+
+    :root {
+      --cream: #faf7f5;
+      --black: #000;
+      --white: #fff;
+      --gray-text: rgba(0,0,0,0.4);
+      --transition-smooth: cubic-bezier(.4,0,.2,1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'StudioSans', 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+      background: var(--cream);
+      color: var(--black);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ========== Navigation ========== */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--cream);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .nav-logo:hover { opacity: 0.7; }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .nav-link {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      transition: opacity 0.2s;
+      cursor: pointer;
+    }
+    .nav-link:hover { opacity: 0.6; }
+
+    /* ========== Main Container ========== */
+    .main {
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    /* ========== Hero Section ========== */
+    .hero {
+      transform-origin: 50%;
+      width: 100%;
+      max-width: 1440px;
+      margin: 0 auto;
+      transition: transform 0.3s ease-out;
+    }
+
+    .hero.tilted {
+      transform: perspective(1200px) rotateX(-2.5deg);
+    }
+
+    .flip-container {
+      perspective: 1600px;
+      width: 100%;
+    }
+
+    .flip-inner {
+      width: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.8s var(--transition-smooth);
+    }
+
+    .flip-front, .flip-back {
+      backface-visibility: hidden;
+      width: 100%;
+    }
+
+    .flip-front {
+      position: relative;
+      height: 85vh;
+      min-height: 560px;
+      max-height: 900px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .flip-back {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: rotateX(180deg);
+      pointer-events: none;
+    }
+
+    .flip-inner.flipped {
+      transform: rotateX(180deg);
+    }
+    .flip-inner.flipped .flip-back {
+      pointer-events: auto;
+    }
+    .flip-inner.flipped .flip-front {
+      pointer-events: none;
+    }
+
+    /* --- Text Pattern Background --- */
+    .text-pattern {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      overflow: hidden;
+      pointer-events: auto;
+      user-select: none;
+    }
+
+    .pattern-row {
+      display: flex;
+      flex-wrap: nowrap;
+      white-space: nowrap;
+      font-size: 52px;
+      font-weight: 700;
+      line-height: 1.6;
+      color: rgba(0,0,0,0.05);
+      letter-spacing: 0.3em;
+    }
+
+    .pattern-row:nth-child(odd) {
+      margin-left: -2em;
+    }
+
+    .pattern-text {
+      flex-shrink: 0;
+      margin-right: 0.6em;
+      transition: color 0.3s, text-shadow 0.3s;
+      cursor: default;
+    }
+
+    .pattern-text:hover {
+      color: rgba(0,0,0,0.12);
+      text-shadow: 0 0 20px rgba(0,0,0,0.08);
+    }
+
+    /* --- Inverted Layer (clip-path reveal) --- */
+    .alt-layer {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--black);
+      z-index: 10;
+      pointer-events: none;
+      will-change: clip-path;
+      clip-path: circle(0px at -300px -300px);
+    }
+
+    .alt-layer .text-pattern {
+      pointer-events: none;
+    }
+
+    .alt-layer .pattern-row {
+      color: rgba(255,255,255,0.12);
+      font-size: 32px;
+    }
+
+    .alt-layer .pattern-row:nth-child(odd) {
+      margin-left: -1em;
+    }
+
+    .alt-layer .pattern-text:hover {
+      color: rgba(255,255,255,0.2);
+    }
+
+    .alt-layer::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(45% 40%, rgba(0,0,0,0.8) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .alt-hero-title {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 11;
+      text-align: center;
+    }
+
+    .alt-hero-title h1 {
+      color: var(--white);
+      font-size: 64px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .alt-hero-subtitle {
+      margin-top: 16px;
+      font-size: 16px;
+      color: rgba(255,255,255,0.4);
+      font-weight: 400;
+      letter-spacing: 0.04em;
+    }
+
+    /* --- Hero Title --- */
+    .hero-title {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 5;
+      text-align: center;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    .hero-title h1 {
+      font-size: 64px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .hero-subtitle {
+      margin-top: 16px;
+      font-size: 16px;
+      color: var(--gray-text);
+      font-weight: 400;
+      letter-spacing: 0.04em;
+    }
+
+    .about-label {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gray-text);
+      cursor: pointer;
+      transition: color 0.3s;
+      padding: 12px 32px;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .about-label:hover { color: var(--black); }
+
+    .crack-zone {
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 20;
+      cursor: pointer;
+    }
+
+    /* --- Flip Back Content --- */
+    .back-content {
+      background: var(--cream);
+      border: 1px solid var(--black);
+      width: 100%;
+      height: 85vh;
+      min-height: 560px;
+      max-height: 900px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .back-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 80px 48px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .back-inner p {
+      font-size: 16px;
+      line-height: 1.9;
+      margin-bottom: 20px;
+      color: rgba(0,0,0,0.75);
+    }
+
+    .back-inner p strong {
+      color: var(--black);
+    }
+
+    .back-close {
+      position: absolute;
+      top: 24px;
+      right: 32px;
+      z-index: 30;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      color: var(--gray-text);
+      transition: color 0.2s;
+      padding: 8px 16px;
+    }
+    .back-close:hover { color: var(--black); }
+
+    /* ========== Showcase Section ========== */
+    .showcase {
+      display: flex;
+      border-left: 1px solid var(--black);
+      border-right: 1px solid var(--black);
+    }
+
+    .showcase-card {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      border-bottom: 1px solid var(--black);
+    }
+
+    .showcase-card + .showcase-card {
+      border-left: 1px solid var(--black);
+    }
+
+    .showcase-card img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.5);
+      transition: filter 0.45s;
+      pointer-events: none;
+    }
+
+    .showcase-card .overlay {
+      position: absolute;
+      top: 0; bottom: 0; left: 0; right: 0;
+      background: rgba(250,247,245,0.35);
+      pointer-events: none;
+      transition: background 0.45s;
+    }
+
+    .showcase-card .info {
+      position: absolute;
+      top: 0; left: 0;
+      padding: 28px 32px;
+      pointer-events: none;
+    }
+
+    .showcase-card .info h3 {
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--black);
+      transition: color 0.4s;
+      line-height: 1.3;
+    }
+
+    .showcase-card .info p {
+      font-size: 14px;
+      color: rgba(0,0,0,0.4);
+      margin-top: 8px;
+      transition: color 0.4s;
+      line-height: 1.5;
+    }
+
+    .showcase-card:hover img {
+      filter: invert() brightness(0.85);
+    }
+    .showcase-card:hover .overlay {
+      background: rgba(0,0,0,0.65);
+    }
+    .showcase-card:hover .info h3 {
+      color: var(--white);
+    }
+    .showcase-card:hover .info p {
+      color: rgba(255,255,255,0.55);
+    }
+
+    /* ========== Experience Section ========== */
+    .section-header {
+      padding: 80px 48px 0;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    .section-header h2 {
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .section-header p {
+      font-size: 16px;
+      color: var(--gray-text);
+      margin-top: 12px;
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    .section-list {
+      padding: 32px 48px 0;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    .list-row {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      background: var(--cream);
+      border-bottom: 1px solid var(--black);
+      transition: all 0.2s;
+      padding: 0;
+    }
+
+    .list-row:first-child {
+      border-top: 1px solid var(--black);
+    }
+
+    .list-row .row-index {
+      width: 80px;
+      flex-shrink: 0;
+      padding: 28px 0 28px 32px;
+    }
+
+    .list-row .row-index span {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-text);
+      transition: color 0.2s;
+    }
+
+    .list-row .row-info {
+      flex: 1;
+      padding: 28px 24px;
+    }
+
+    .list-row .row-info h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      transition: color 0.2s;
+    }
+
+    .list-row .row-info p {
+      font-size: 14px;
+      color: var(--gray-text);
+      transition: color 0.2s;
+    }
+
+    .list-row .row-arrow {
+      width: 80px;
+      flex-shrink: 0;
+      text-align: center;
+      padding: 28px 32px 28px 0;
+    }
+
+    .list-row .row-arrow span {
+      font-size: 20px;
+      color: var(--gray-text);
+      display: inline-block;
+      transition: transform 0.2s, color 0.2s;
+    }
+
+    .list-row:hover {
+      background: var(--black);
+    }
+
+    .list-row:hover .row-index span,
+    .list-row:hover .row-info h3,
+    .list-row:hover .row-info p,
+    .list-row:hover .row-arrow span {
+      color: var(--white);
+    }
+
+    .list-row:hover .row-arrow span {
+      transform: translate(8px);
+    }
+
+    /* ========== Contact Section ========== */
+    .contact-section {
+      padding: 100px 48px 80px;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    .contact-section h2 {
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .contact-section .intro {
+      font-size: 16px;
+      color: var(--gray-text);
+      margin-top: 16px;
+      max-width: 680px;
+      line-height: 1.8;
+    }
+
+    .contact-section .positions {
+      margin-top: 40px;
+    }
+
+    .contact-section .contact {
+      margin-top: 48px;
+      font-size: 15px;
+      color: var(--gray-text);
+    }
+
+    .contact-section .contact strong {
+      color: var(--black);
+    }
+
+    /* ========== Footer ========== */
+    .footer {
+      text-align: center;
+      padding: 40px 48px;
+      font-size: 13px;
+      color: var(--gray-text);
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .footer a {
+      transition: opacity 0.2s;
+    }
+    .footer a:hover {
+      opacity: 0.6;
+    }
+
+    /* ========== Animations ========== */
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      50% { opacity: 0.5; }
+    }
+
+    /* ========== Responsive ========== */
+    @media (max-width: 960px) {
+      .nav { padding: 0 24px; }
+      .nav-links { gap: 24px; }
+      .hero-title h1, .alt-hero-title h1 { font-size: 40px; }
+      .flip-front { height: 70vh; min-height: 420px; }
+      .back-content { height: 70vh; min-height: 420px; }
+      .back-inner { padding: 48px 24px; }
+      .section-header { padding: 60px 24px 0; }
+      .section-header h2 { font-size: 32px; }
+      .section-list { padding: 24px 24px 0; }
+      .list-row .row-index { width: 60px; padding-left: 20px; }
+      .list-row .row-arrow { width: 60px; padding-right: 20px; }
+      .contact-section { padding: 60px 24px 48px; }
+      .contact-section h2 { font-size: 32px; }
+      .pattern-row { font-size: 36px; }
+      .alt-layer .pattern-row { font-size: 24px; }
+      .alt-hero-title h1 { font-size: 40px; }
+    }
+
+    @media (max-width: 640px) {
+      .showcase { flex-direction: column; }
+      .showcase-card + .showcase-card { border-left: none; border-top: 1px solid var(--black); }
+      .showcase-card img { height: 220px; }
+      .hero-title h1, .alt-hero-title h1 { font-size: 28px; }
+      .hero-subtitle { font-size: 14px; }
+      .pattern-row { font-size: 28px; }
+      .alt-layer .pattern-row { font-size: 20px; }
+      .section-header p { font-size: 14px; }
+      .nav-links { gap: 16px; }
+      .nav-link { font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">开物传媒</div>
+    <div class="nav-links">
+      <a class="nav-link" href="#works">业务范围</a>
+      <a class="nav-link" href="#services">服务</a>
+      <a class="nav-link" href="#about">作品</a>
+      <a class="nav-link" href="#contact">联系我们</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="main">
+    <section class="hero" id="hero">
+      <div class="flip-container">
+        <div class="flip-inner" id="flipInner">
+
+          <!-- Front Side -->
+          <div class="flip-front" id="flipFront">
+            <!-- Background Text Pattern -->
+            <div class="text-pattern" id="textPattern"></div>
+
+            <!-- Inverted Layer with clip-path reveal -->
+            <div class="alt-layer" id="altLayer">
+              <div class="text-pattern" id="altPattern"></div>
+              <div class="alt-hero-title">
+                <h1>HELLO, WE ARE GENESIS MEDIA</h1>
+                <p class="alt-hero-subtitle">From Light, We Create</p>
+              </div>
+            </div>
+
+            <!-- Main Title -->
+            <div class="hero-title">
+              <h1>你好，我们是开物传媒</h1>
+              <p class="hero-subtitle">以光影为媒，开万物之象</p>
+            </div>
+
+            <!-- About Label & Click Zone -->
+            <span class="about-label">关于我们</span>
+            <div class="crack-zone" id="crackZone"></div>
+          </div>
+
+          <!-- Back Side -->
+          <div class="flip-back">
+            <div class="back-content">
+              <span class="back-close" id="backClose">关闭</span>
+              <div class="back-inner">
+                <p><strong>开物传媒</strong>成立于 2018 年，"开物"取自《易经》"开物成务"，意为洞悉事物本质、创造万物。Genesis 意为起源与创造——我们相信，每一次拍摄都是一次从无到有的创作。</p>
+                <p>我们的团队由五位风格各异的摄影师组成，从细腻温柔的日系清新到浓烈深沉的电影质感，每一位成员都拥有超过 8 年的从业经验，服务客户超过 3000 组。</p>
+                <p>我们不追求千篇一律的模板化拍摄，而是坚持<strong>"一客一案"</strong>——在拍摄前深入了解每一位客户的故事与审美偏好，让每一张照片都独一无二。</p>
+                <p>从个人写真到品牌广告，从婚礼纪实到食物摄影，我们以光影为媒，连接真实与美，让稍纵即逝的瞬间成为值得一生珍藏的画面。</p>
+                <p>让我们一起，开万物之象，创光影之美。</p>
+                <p><strong>开物传媒团队</strong></p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Works Showcase -->
+    <section class="showcase" id="works">
+      <div class="showcase-card">
+        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80" alt="婚礼纪实" draggable="false"/>
+        <div class="overlay"></div>
+        <div class="info">
+          <h3>婚礼纪实</h3>
+          <p>真实记录你们最重要的一天，从晨光中的准备到暮色里的誓言</p>
+        </div>
+      </div>
+      <div class="showcase-card">
+        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80" alt="商业摄影" draggable="false"/>
+        <div class="overlay"></div>
+        <div class="info">
+          <h3>商业摄影</h3>
+          <p>为品牌打造高质感视觉内容，产品、团队、空间全方位呈现</p>
+        </div>
+      </div>
+      <div class="showcase-card">
+        <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&q=80" alt="个人写真" draggable="false"/>
+        <div class="overlay"></div>
+        <div class="info">
+          <h3>个人写真</h3>
+          <p>发现你最好的一面，每张照片都是一次自信的表达</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Service Process -->
+    <div class="section-header" id="services">
+      <h2>服务流程</h2>
+      <p>从第一次沟通到最终成片，我们让每一步都清晰透明。</p>
+    </div>
+    <div class="section-list">
+      <div class="list-row">
+        <div class="row-index"><span>01</span></div>
+        <div class="row-info"><h3>需求沟通</h3><p>一对一了解您的拍摄需求、风格偏好与使用场景</p></div>
+        <div class="row-arrow"><span>&rarr;</span></div>
+      </div>
+      <div class="list-row">
+        <div class="row-index"><span>02</span></div>
+        <div class="row-info"><h3>方案定制</h3><p>根据需求制定拍摄方案，包含场景、服装、妆造建议</p></div>
+        <div class="row-arrow"><span>&rarr;</span></div>
+      </div>
+      <div class="list-row">
+        <div class="row-index"><span>03</span></div>
+        <div class="row-info"><h3>现场拍摄</h3><p>资深摄影师全程引导，捕捉最自然的状态与表情</p></div>
+        <div class="row-arrow"><span>&rarr;</span></div>
+      </div>
+      <div class="list-row">
+        <div class="row-index"><span>04</span></div>
+        <div class="row-info"><h3>后期精修</h3><p>专业修图团队逐张精修，调色、磨皮、光影全链路把控</p></div>
+        <div class="row-arrow"><span>&rarr;</span></div>
+      </div>
+      <div class="list-row">
+        <div class="row-index"><span>05</span></div>
+        <div class="row-info"><h3>交付成品</h3><p>高清原片 + 精修片云端交付，支持相册定制与打印</p></div>
+        <div class="row-arrow"><span>&rarr;</span></div>
+      </div>
+    </div>
+
+    <!-- Latest Works -->
+    <div class="section-header" id="about" style="padding-top: 100px;">
+      <h2>最新案例</h2>
+    </div>
+    <div class="section-list">
+      <div class="list-row">
+        <div class="row-index"><span>01</span></div>
+        <div class="row-info"><h3>张先生 & 李女士 · 杭州西溪婚礼</h3><p>一场在雨中举行的户外婚礼，水光与泪光交织的温柔记录</p></div>
+        <div class="row-arrow"><span>&rarr;</span></div>
+      </div>
+      <div class="list-row">
+        <div class="row-index"><span>02</span></div>
+        <div class="row-info"><h3>「初见」咖啡品牌 · 产品视觉升级</h3><p>为精品咖啡品牌打造的全套产品视觉，暖调自然光风格</p></div>
+        <div class="row-arrow"><span>&rarr;</span></div>
+      </div>
+      <div class="list-row">
+        <div class="row-index"><span>03</span></div>
+        <div class="row-info"><h3>林小姐 · 生日个人写真</h3><p>在老洋房里的一组复古胶片感写真，庆祝 30 岁的到来</p></div>
+        <div class="row-arrow"><span>&rarr;</span></div>
+      </div>
+      <div class="list-row">
+        <div class="row-index"><span>04</span></div>
+        <div class="row-info"><h3>某科技公司 · 团队形象照</h3><p>50 人规模的创业公司，统一风格的职场形象照拍摄</p></div>
+        <div class="row-arrow"><span>&rarr;</span></div>
+      </div>
+      <div class="list-row">
+        <div class="row-index"><span>05</span></div>
+        <div class="row-info"><h3>「食光」餐厅 · 菜品拍摄</h3><p>日式料理的细腻呈现，注重食材纹理与摆盘光影</p></div>
+        <div class="row-arrow"><span>&rarr;</span></div>
+      </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="contact-section" id="contact">
+      <h2>联系我们</h2>
+      <p class="intro">每一次拍摄都始于一次对话。无论您是想记录人生的重要时刻，还是为品牌打造全新视觉形象，我们都期待与您聊聊。请通过以下方式联系我们，我们会在 24 小时内回复您，并为您提供免费的拍摄方案咨询。</p>
+      <div class="positions section-list" style="padding: 0;">
+        <div class="list-row">
+          <div class="row-index"><span>01</span></div>
+          <div class="row-info"><h3>电话咨询</h3><p>工作日 10:00 - 19:00，随时致电 1XX-XXXX-XXXX</p></div>
+          <div class="row-arrow"><span>&rarr;</span></div>
+        </div>
+        <div class="list-row">
+          <div class="row-index"><span>02</span></div>
+          <div class="row-info"><h3>微信预约</h3><p>添加微信 GenesisMedia，备注"拍摄咨询"</p></div>
+          <div class="row-arrow"><span>&rarr;</span></div>
+        </div>
+        <div class="list-row">
+          <div class="row-index"><span>03</span></div>
+          <div class="row-info"><h3>到店访问</h3><p>XX市XX区XX路XX号 · 欢迎提前预约参观工作室</p></div>
+          <div class="row-arrow"><span>&rarr;</span></div>
+        </div>
+        <div class="list-row">
+          <div class="row-index"><span>04</span></div>
+          <div class="row-info"><h3>邮箱联系</h3><p>hello@genesis-media.com，发送您的拍摄需求</p></div>
+          <div class="row-arrow"><span>&rarr;</span></div>
+        </div>
+      </div>
+      <p class="contact">如有任何疑问，请通过邮件联系我们：<strong>hello@genesis-media.com</strong></p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <span>Copyright &copy; 2018 - 2026 开物传媒 Genesis Media · 关注我们：</span>
+    <a href="#">小红书</a> · <a href="#">微信公众号</a> · <a href="#">抖音</a> · <a href="#">微博</a>
+  </div>
+
+  <script>
+    // ========== Generate Text Patterns ==========
+    function generatePattern(container, count, text) {
+      for (let i = 0; i < count; i++) {
+        const row = document.createElement('div');
+        row.className = container.classList.contains('alt-layer') ? 'pattern-row' : 'pattern-row';
+        for (let j = 0; j < 20; j++) {
+          const span = document.createElement('span');
+          span.className = 'pattern-text';
+          span.textContent = text;
+          row.appendChild(span);
+        }
+        container.appendChild(row);
+      }
+    }
+
+    const textPattern = document.getElementById('textPattern');
+    const altPattern = document.getElementById('altPattern');
+
+    // Generate 12 rows of pattern for both layers
+    for (let i = 0; i < 12; i++) {
+      const row = document.createElement('div');
+      row.className = 'pattern-row';
+      for (let j = 0; j < 20; j++) {
+        const span = document.createElement('span');
+        span.className = 'pattern-text';
+        span.textContent = 'G E N E S I S';
+        row.appendChild(span);
+      }
+      textPattern.appendChild(row);
+    }
+
+    for (let i = 0; i < 12; i++) {
+      const row = document.createElement('div');
+      row.className = 'pattern-row';
+      for (let j = 0; j < 20; j++) {
+        const span = document.createElement('span');
+        span.className = 'pattern-text';
+        span.textContent = 'G E N E S I S';
+        row.appendChild(span);
+      }
+      altPattern.appendChild(row);
+    }
+
+    // ========== 3D Flip Interaction ==========
+    const flipInner = document.getElementById('flipInner');
+    const crackZone = document.getElementById('crackZone');
+    const backClose = document.getElementById('backClose');
+    const flipFront = document.getElementById('flipFront');
+
+    crackZone.addEventListener('click', function(e) {
+      flipInner.classList.add('flipped');
+      // Hide front content after the flip animation reaches ~halfway (past 90deg)
+      setTimeout(function() {
+        flipFront.style.visibility = 'hidden';
+      }, 400);
+    });
+
+    backClose.addEventListener('click', function(e) {
+      e.stopPropagation();
+      // Show front content immediately before unflipping
+      flipFront.style.visibility = '';
+      flipInner.classList.remove('flipped');
+    });
+
+    // ========== Clip-Path Mouse Follow ==========
+    const altLayer = document.getElementById('altLayer');
+
+    flipFront.addEventListener('mousemove', function(e) {
+      const rect = flipFront.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      altLayer.style.clipPath = `circle(120px at ${x}px ${y}px)`;
+    });
+
+    flipFront.addEventListener('mouseleave', function() {
+      altLayer.style.clipPath = 'circle(0px at -300px -300px)';
+    });
+
+    // ========== Hero Hover Tilt ==========
+    const hero = document.getElementById('hero');
+
+    hero.addEventListener('mouseenter', function(e) {
+      // Only tilt when mouse is in the bottom third
+      const rect = hero.getBoundingClientRect();
+      const y = e.clientY - rect.top;
+      if (y > rect.height * 0.6) {
+        hero.classList.add('tilted');
+      }
+    });
+
+    hero.addEventListener('mousemove', function(e) {
+      const rect = hero.getBoundingClientRect();
+      const y = e.clientY - rect.top;
+      if (y > rect.height * 0.6) {
+        hero.classList.add('tilted');
+      } else {
+        hero.classList.remove('tilted');
+      }
+    });
+
+    hero.addEventListener('mouseleave', function() {
+      hero.classList.remove('tilted');
+    });
+
+    // ========== Scroll-triggered fade-in for list rows ==========
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Apply initial hidden state and observe list rows
+    document.querySelectorAll('.list-row, .showcase-card').forEach(function(el, i) {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.5s ease ' + (i % 5) * 0.08 + 's, transform 0.5s ease ' + (i % 5) * 0.08 + 's, background 0.2s, color 0.2s, filter 0.45s';
+      observer.observe(el);
+    });
+
+    // Also observe section headers
+    document.querySelectorAll('.section-header, .contact-section > h2, .contact-section > .intro, .contact-section > .contact').forEach(function(el) {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>
