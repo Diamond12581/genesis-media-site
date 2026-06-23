@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>张先生 & 李女士 · 杭州西溪婚礼 — 开物传媒</title>
+  <style>
+    /* ========== Reset & Base ========== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @font-face {
+      font-family: 'StudioSans';
+      src: local('PingFang SC'), local('Noto Sans SC'), local('Microsoft YaHei'), local('Helvetica Neue'), local('Arial');
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: 'StudioSans';
+      src: local('PingFang SC Semibold'), local('Noto Sans SC Bold'), local('Microsoft YaHei Bold'), local('Helvetica Neue Bold'), local('Arial Bold');
+      font-weight: 600;
+    }
+    @font-face {
+      font-family: 'StudioSans';
+      src: local('PingFang SC Bold'), local('Noto Sans SC Black'), local('Microsoft YaHei Bold'), local('Helvetica Neue Bold'), local('Arial Bold');
+      font-weight: 700;
+    }
+
+    :root {
+      --cream: #faf7f5;
+      --black: #000;
+      --white: #fff;
+      --gray-text: rgba(0,0,0,0.4);
+      --transition-smooth: cubic-bezier(.4,0,.2,1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'StudioSans', 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+      background: var(--cream);
+      color: var(--black);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ========== Navigation ========== */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--cream);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-back {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--gray-text);
+      transition: color 0.2s;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-back:hover { color: var(--black); }
+
+    .nav-back span {
+      font-size: 18px;
+      display: inline-block;
+      transition: transform 0.2s;
+    }
+    .nav-back:hover span { transform: translateX(-4px); }
+
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .nav-logo:hover { opacity: 0.7; }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .nav-link {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      transition: opacity 0.2s;
+      cursor: pointer;
+    }
+    .nav-link:hover { opacity: 0.6; }
+
+    /* ========== Hero ========== */
+    .case-hero {
+      position: relative;
+      width: 100%;
+      height: 75vh;
+      min-height: 480px;
+      max-height: 800px;
+      overflow: hidden;
+    }
+
+    .case-hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .case-hero-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 60%;
+      background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .case-hero-info {
+      position: absolute;
+      bottom: 48px;
+      left: 48px;
+      right: 48px;
+      z-index: 5;
+    }
+
+    .case-hero-info .tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 6px 16px;
+      margin-bottom: 20px;
+    }
+
+    .case-hero-info h1 {
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+    }
+
+    .case-hero-info p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.55);
+      margin-top: 12px;
+      max-width: 600px;
+      line-height: 1.7;
+    }
+
+    /* ========== Case Meta ========== */
+    .case-meta {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 60px 48px;
+      display: flex;
+      border-bottom: 1px solid var(--black);
+    }
+
+    .meta-item {
+      flex: 1;
+      padding-right: 32px;
+    }
+
+    .meta-item:not(:last-child) {
+      border-right: 1px solid rgba(0,0,0,0.08);
+      padding-right: 32px;
+      margin-right: 32px;
+    }
+
+    .meta-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray-text);
+      margin-bottom: 10px;
+    }
+
+    .meta-value {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.6;
+    }
+
+    /* ========== Section Headers ========== */
+    .section-header {
+      padding: 80px 48px 0;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    .section-header h2 {
+      font-size: 40px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .section-header p {
+      font-size: 16px;
+      color: var(--gray-text);
+      margin-top: 12px;
+      max-width: 680px;
+      line-height: 1.8;
+    }
+
+    /* ========== Narrative Blocks ========== */
+    .narrative {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 48px 48px 0;
+    }
+
+    .narrative-text {
+      max-width: 720px;
+    }
+
+    .narrative-text p {
+      font-size: 16px;
+      line-height: 2;
+      color: rgba(0,0,0,0.75);
+      margin-bottom: 20px;
+    }
+
+    .narrative-text p strong {
+      color: var(--black);
+    }
+
+    /* ========== Full-Width Image ========== */
+    .full-image {
+      width: 100%;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 48px 48px 0;
+    }
+
+    .full-image img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      display: block;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+
+    /* ========== Gallery Grid ========== */
+    .gallery-grid {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 48px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .gallery-item.tall {
+      grid-row: span 2;
+    }
+
+    .gallery-item.wide {
+      grid-column: span 2;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      min-height: 260px;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.7);
+      transition: filter 0.5s, transform 0.5s;
+    }
+
+    .gallery-item:hover img {
+      filter: saturate(1) brightness(1.02);
+      transform: scale(1.03);
+    }
+
+    .gallery-item .gallery-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 20px 24px;
+      background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.4s;
+      pointer-events: none;
+    }
+
+    .gallery-item:hover .gallery-caption {
+      opacity: 1;
+    }
+
+    .gallery-caption span {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: 0.02em;
+    }
+
+    /* ========== Side by Side ========== */
+    .side-by-side {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .side-image {
+      overflow: hidden;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .side-image img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s;
+    }
+
+    .side-image:hover img {
+      transform: scale(1.03);
+    }
+
+    /* ========== Highlight Quote ========== */
+    .highlight-quote {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 80px 48px;
+      text-align: center;
+    }
+
+    .highlight-quote blockquote {
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 1.6;
+      color: var(--black);
+      max-width: 800px;
+      margin: 0 auto;
+      letter-spacing: 0.01em;
+    }
+
+    .highlight-quote .quote-author {
+      margin-top: 20px;
+      font-size: 14px;
+      color: var(--gray-text);
+      letter-spacing: 0.04em;
+    }
+
+    /* ========== Next Case ========== */
+    .next-case {
+      border-top: 1px solid var(--black);
+      margin-top: 40px;
+    }
+
+    .next-case-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      align-items: stretch;
+    }
+
+    .next-case-text {
+      flex: 1;
+      padding: 60px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .next-case-text .label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray-text);
+      margin-bottom: 16px;
+    }
+
+    .next-case-text h2 {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      line-height: 1.3;
+      transition: opacity 0.2s;
+    }
+
+    .next-case-text p {
+      font-size: 15px;
+      color: var(--gray-text);
+      margin-top: 12px;
+      line-height: 1.6;
+    }
+
+    .next-case-text .arrow-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 24px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--black);
+      transition: gap 0.2s;
+      cursor: pointer;
+    }
+
+    .next-case-text .arrow-link:hover {
+      gap: 14px;
+    }
+
+    .next-case-image {
+      width: 420px;
+      flex-shrink: 0;
+      overflow: hidden;
+      border-left: 1px solid var(--black);
+    }
+
+    .next-case-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.5);
+      transition: filter 0.45s;
+    }
+
+    .next-case:hover .next-case-image img {
+      filter: saturate(1);
+    }
+
+    .next-case:hover .next-case-text h2 {
+      opacity: 0.7;
+    }
+
+    /* ========== Footer ========== */
+    .footer {
+      text-align: center;
+      padding: 40px 48px;
+      font-size: 13px;
+      color: var(--gray-text);
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .footer a {
+      transition: opacity 0.2s;
+    }
+    .footer a:hover {
+      opacity: 0.6;
+    }
+
+    /* ========== Animations ========== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ========== Responsive ========== */
+    @media (max-width: 960px) {
+      .nav { padding: 0 24px; }
+      .nav-links { gap: 24px; }
+      .case-hero { height: 55vh; min-height: 360px; }
+      .case-hero-info { left: 24px; right: 24px; bottom: 32px; }
+      .case-hero-info h1 { font-size: 32px; }
+      .case-meta { padding: 40px 24px; flex-wrap: wrap; gap: 24px; }
+      .meta-item:not(:last-child) { border-right: none; padding-right: 0; margin-right: 0; }
+      .meta-item { flex: 1 1 45%; }
+      .section-header { padding: 60px 24px 0; }
+      .section-header h2 { font-size: 32px; }
+      .narrative { padding: 36px 24px 0; }
+      .full-image { padding: 36px 24px 0; }
+      .full-image img { height: 320px; }
+      .gallery-grid { padding: 36px 24px; grid-template-columns: repeat(2, 1fr); }
+      .gallery-item.tall { grid-row: span 1; }
+      .gallery-item.wide { grid-column: span 1; }
+      .side-by-side { padding: 36px 24px; }
+      .side-image img { height: 280px; }
+      .highlight-quote { padding: 60px 24px; }
+      .highlight-quote blockquote { font-size: 22px; }
+      .next-case-text { padding: 40px 24px; }
+      .next-case-text h2 { font-size: 26px; }
+      .next-case-image { width: 280px; }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links { gap: 16px; }
+      .nav-link { font-size: 13px; }
+      .case-hero { height: 45vh; min-height: 300px; }
+      .case-hero-info h1 { font-size: 24px; }
+      .case-hero-info .tag { font-size: 11px; }
+      .case-meta { flex-direction: column; }
+      .meta-item { flex: 1 1 100%; }
+      .section-header h2 { font-size: 26px; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item img { min-height: 200px; }
+      .side-by-side { grid-template-columns: 1fr; }
+      .side-image img { height: 220px; }
+      .highlight-quote blockquote { font-size: 18px; }
+      .next-case-inner { flex-direction: column-reverse; }
+      .next-case-image { width: 100%; height: 220px; border-left: none; border-top: 1px solid var(--black); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-left">
+      <a class="nav-back" href="genesis-media.html"><span>&larr;</span> 返回首页</a>
+      <div class="nav-logo" onclick="window.location.href='genesis-media.html'">开物传媒</div>
+    </div>
+    <div class="nav-links">
+      <a class="nav-link" href="genesis-media.html#works">业务范围</a>
+      <a class="nav-link" href="genesis-media.html#services">服务</a>
+      <a class="nav-link" href="genesis-media.html#about">作品</a>
+      <a class="nav-link" href="genesis-media.html#contact">联系我们</a>
+    </div>
+  </nav>
+
+  <!-- Case Hero -->
+  <section class="case-hero">
+    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=1600&q=85" alt="杭州西溪婚礼" />
+    <div class="case-hero-overlay"></div>
+    <div class="case-hero-info">
+      <div class="tag">婚礼纪实</div>
+      <h1>张先生 & 李女士<br/>杭州西溪婚礼</h1>
+      <p>一场在雨中举行的户外婚礼，水光与泪光交织的温柔记录</p>
+    </div>
+  </section>
+
+  <!-- Case Meta -->
+  <div class="case-meta">
+    <div class="meta-item">
+      <div class="meta-label">拍摄日期</div>
+      <div class="meta-value">2025 年 10 月 18 日</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">拍摄地点</div>
+      <div class="meta-value">杭州西溪湿地 · 悦榕庄</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">摄影师</div>
+      <div class="meta-value">陈默 · 高级摄影师</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">交付数量</div>
+      <div class="meta-value">精修 128 张 · 原片 1600+</div>
+    </div>
+  </div>
+
+  <!-- Story Intro -->
+  <div class="section-header fade-in">
+    <h2>故事</h2>
+    <p>张先生和李女士是在一次旅途中相识的。那天西溪下着小雨，他们说——"不如就让这场雨做我们的见证。"</p>
+  </div>
+
+  <div class="narrative fade-in">
+    <div class="narrative-text">
+      <p>婚礼选在杭州西溪湿地旁的悦榕庄，十月的杭州正值桂花尾声，空气中弥漫着若有若无的甜香。原定的户外仪式因为一场突如其来的秋雨而面临调整，但新娘李女士却说：<strong>"雨中的婚礼，才是独属于我们的记忆。"</strong></p>
+      <p>于是，我们在雨幕中搭建了一场最温柔的仪式。透明雨伞、湿润的花瓣、被雨滴打碎的湖面倒影——这些意料之外的元素，反而成为了这组作品中最动人的画面。</p>
+    </div>
+  </div>
+
+  <!-- Full Width Image -->
+  <div class="full-image fade-in">
+    <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=1600&q=85" alt="雨中婚礼仪式" />
+  </div>
+
+  <!-- Gallery Grid -->
+  <div class="section-header fade-in" style="padding-top: 60px;">
+    <h2>精选画面</h2>
+  </div>
+
+  <div class="gallery-grid">
+    <div class="gallery-item tall fade-in">
+      <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800&q=80" alt="新娘准备" />
+      <div class="gallery-caption"><span>晨间准备</span></div>
+    </div>
+    <div class="gallery-item fade-in">
+      <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=800&q=80" alt="婚礼细节" />
+      <div class="gallery-caption"><span>花艺与戒指</span></div>
+    </div>
+    <div class="gallery-item fade-in">
+      <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?w=800&q=80" alt="交换誓言" />
+      <div class="gallery-caption"><span>交换誓言</span></div>
+    </div>
+    <div class="gallery-item wide fade-in">
+      <img src="https://images.unsplash.com/photo-1529636798458-92182e662485?w=1200&q=80" alt="晚宴全景" />
+      <div class="gallery-caption"><span>雨中晚宴</span></div>
+    </div>
+    <div class="gallery-item fade-in">
+      <img src="https://images.unsplash.com/photo-1591604466107-ec97de577aff?w=800&q=80" alt="第一支舞" />
+      <div class="gallery-caption"><span>第一支舞</span></div>
+    </div>
+  </div>
+
+  <!-- Quote -->
+  <div class="highlight-quote fade-in">
+    <blockquote>"下雨的时候他用外套替我挡雨，我就知道，这辈子就是他了。"</blockquote>
+    <div class="quote-author">—— 李女士</div>
+  </div>
+
+  <!-- More Narrative -->
+  <div class="narrative fade-in">
+    <div class="narrative-text">
+      <p>当天的拍摄从清晨六点的新娘化妆开始，一直延续到深夜宾客散去后的最后一支舞。我们用纪实的方式记录了全天的每一个重要时刻——<strong>父亲第一次看到女儿穿婚纱时转过身偷偷擦泪的背影</strong>，新郎在念誓词时哽咽说不出话的三秒钟，以及晚宴上朋友们自发合唱那首他们第一次约会时听的歌。</p>
+      <p>后期处理上，我们保留了雨天特有的低饱和、柔光质感，不做过度修饰，让画面忠于那一天的真实氛围。每一张照片，都是那一天的温度和气味。</p>
+    </div>
+  </div>
+
+  <!-- Side by Side Images -->
+  <div class="side-by-side fade-in">
+    <div class="side-image">
+      <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&q=80" alt="父亲与新娘" />
+    </div>
+    <div class="side-image">
+      <img src="https://images.unsplash.com/photo-1460978812857-470ed1c77af0?w=800&q=80" alt="晚宴氛围" />
+    </div>
+  </div>
+
+  <!-- Client Feedback -->
+  <div class="section-header fade-in" style="padding-top: 60px;">
+    <h2>客户评价</h2>
+  </div>
+
+  <div class="narrative fade-in" style="padding-bottom: 20px;">
+    <div class="narrative-text">
+      <p><strong>"收到照片的那一刻我们都哭了。"</strong>张先生在回访中这样说。"原以为下雨是遗憾，但看到照片才知道，那些雨滴、那些朦胧的光线，才是最珍贵的部分。开物的摄影师不仅记录了画面，更记录了我们当时的心情。每一张照片拿出来，都能重新感受到那天的温度。"</p>
+      <p>"特别感谢团队没有让我们换到室内，而是和我们一起拥抱了这场雨。这是我们做出的最正确的决定。"</p>
+    </div>
+  </div>
+
+  <!-- Next Case -->
+  <div class="next-case">
+    <a href="case-coffee.html" class="next-case-inner" style="text-decoration: none; color: inherit;">
+      <div class="next-case-text">
+        <div class="label">下一个案例</div>
+        <h2>「初见」咖啡品牌 · 产品视觉升级</h2>
+        <p>为精品咖啡品牌打造的全套产品视觉，暖调自然光风格</p>
+        <div class="arrow-link">查看案例 <span>&rarr;</span></div>
+      </div>
+      <div class="next-case-image">
+        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80" alt="咖啡品牌拍摄" />
+      </div>
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <span>Copyright &copy; 2018 - 2026 开物传媒 Genesis Media · 关注我们：</span>
+    <a href="#">小红书</a> · <a href="#">微信公众号</a> · <a href="#">抖音</a> · <a href="#">微博</a>
+  </div>
+
+  <script>
+    // ========== Scroll-triggered fade-in ==========
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -60px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(function(el) {
+      observer.observe(el);
+    });
+
+    // ========== Gallery items staggered fade-in ==========
+    document.querySelectorAll('.gallery-item').forEach(function(el, i) {
+      el.style.transitionDelay = (i % 3) * 0.1 + 's';
+    });
+  </script>
+
+</body>
+</html>
