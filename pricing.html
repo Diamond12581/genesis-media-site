@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>摄影报价单 — 开物传媒</title>
+  <style>
+    /* ========== Reset & Base ========== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @font-face {
+      font-family: 'StudioSans';
+      src: local('PingFang SC'), local('Noto Sans SC'), local('Microsoft YaHei'), local('Helvetica Neue'), local('Arial');
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: 'StudioSans';
+      src: local('PingFang SC Semibold'), local('Noto Sans SC Bold'), local('Microsoft YaHei Bold'), local('Helvetica Neue Bold'), local('Arial Bold');
+      font-weight: 600;
+    }
+    @font-face {
+      font-family: 'StudioSans';
+      src: local('PingFang SC Bold'), local('Noto Sans SC Black'), local('Microsoft YaHei Bold'), local('Helvetica Neue Bold'), local('Arial Bold');
+      font-weight: 700;
+    }
+
+    :root {
+      --cream: #faf7f5;
+      --black: #000;
+      --white: #fff;
+      --gray-text: rgba(0,0,0,0.4);
+      --transition-smooth: cubic-bezier(.4,0,.2,1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'StudioSans', 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+      background: var(--cream);
+      color: var(--black);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ========== Navigation ========== */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--cream);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-back {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--gray-text);
+      transition: color 0.2s;
+      cursor: pointer;
+    }
+    .nav-back:hover { color: var(--black); }
+
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .nav-logo:hover { opacity: 0.7; }
+
+    /* ========== Page Header ========== */
+    .page-header {
+      padding: 80px 48px 48px;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    .page-header h1 {
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+    }
+
+    .page-header .subtitle {
+      font-size: 16px;
+      color: var(--gray-text);
+      margin-top: 16px;
+      max-width: 680px;
+      line-height: 1.8;
+    }
+
+    /* ========== Pricing Grid ========== */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border: 1px solid var(--black);
+      margin: 0 48px;
+      max-width: 1344px;
+    }
+
+    .pricing-tier {
+      padding: 36px 28px;
+      border-right: 1px solid rgba(0,0,0,0.1);
+      transition: background 0.3s, color 0.3s;
+      cursor: default;
+    }
+
+    .pricing-tier:last-child {
+      border-right: none;
+    }
+
+    .pricing-tier:hover {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .pricing-tier:hover .tier-label,
+    .pricing-tier:hover .tier-price,
+    .pricing-tier:hover .tier-price span,
+    .pricing-tier:hover .tier-unit,
+    .pricing-tier:hover .tier-desc li {
+      color: var(--white);
+    }
+
+    .pricing-tier:hover .tier-desc li {
+      border-bottom-color: rgba(255,255,255,0.15);
+    }
+
+    .tier-label {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray-text);
+      margin-bottom: 16px;
+      transition: color 0.3s;
+    }
+
+    .tier-name {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: 0.02em;
+    }
+
+    .tier-price {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      letter-spacing: -0.02em;
+      transition: color 0.3s;
+    }
+
+    .tier-price span {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--gray-text);
+      transition: color 0.3s;
+    }
+
+    .tier-unit {
+      font-size: 13px;
+      color: var(--gray-text);
+      margin-bottom: 24px;
+      transition: color 0.3s;
+    }
+
+    .tier-desc {
+      list-style: none;
+      padding: 0;
+    }
+
+    .tier-desc li {
+      font-size: 14px;
+      color: rgba(0,0,0,0.6);
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      line-height: 1.5;
+      transition: color 0.3s, border-color 0.3s;
+    }
+
+    .tier-desc li:last-child {
+      border-bottom: none;
+    }
+
+    /* ========== Detail Sections ========== */
+    .pricing-section {
+      padding: 48px 48px 0;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    .pricing-section h2 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      letter-spacing: 0.02em;
+    }
+
+    /* ========== Tables ========== */
+    .pricing-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .pricing-table thead th {
+      text-align: left;
+      font-weight: 600;
+      padding: 14px 20px;
+      border-bottom: 2px solid var(--black);
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      color: var(--gray-text);
+    }
+
+    .pricing-table tbody td {
+      padding: 14px 20px;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      vertical-align: top;
+      line-height: 1.6;
+    }
+
+    .pricing-table tbody tr {
+      transition: background 0.2s;
+    }
+
+    .pricing-table tbody tr:hover {
+      background: rgba(0,0,0,0.03);
+    }
+
+    .pricing-table .col-tier {
+      font-weight: 600;
+      white-space: nowrap;
+      width: 100px;
+    }
+
+    .pricing-table .col-price {
+      font-weight: 600;
+      white-space: nowrap;
+      width: 140px;
+    }
+
+    .pricing-table .col-price .note {
+      font-weight: 400;
+      color: var(--gray-text);
+      font-size: 12px;
+    }
+
+    /* ========== Note Box ========== */
+    .pricing-note {
+      margin-top: 32px;
+      padding: 24px;
+      background: rgba(0,0,0,0.02);
+      border-left: 3px solid var(--black);
+      font-size: 14px;
+      color: rgba(0,0,0,0.6);
+      line-height: 1.9;
+    }
+
+    .pricing-note strong {
+      color: var(--black);
+    }
+
+    /* ========== Divider ========== */
+    .divider {
+      max-width: 1440px;
+      margin: 48px auto 0;
+      padding: 0 48px;
+    }
+
+    .divider hr {
+      border: none;
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+
+    /* ========== Footer ========== */
+    .footer {
+      text-align: center;
+      padding: 48px;
+      font-size: 13px;
+      color: var(--gray-text);
+      border-top: 1px solid rgba(0,0,0,0.08);
+      margin-top: 80px;
+    }
+
+    .footer a {
+      transition: opacity 0.2s;
+    }
+    .footer a:hover {
+      opacity: 0.6;
+    }
+
+    /* ========== Animations ========== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ========== Responsive ========== */
+    @media (max-width: 960px) {
+      .nav { padding: 0 24px; }
+      .page-header { padding: 60px 24px 36px; }
+      .page-header h1 { font-size: 36px; }
+      .pricing-grid {
+        grid-template-columns: repeat(2, 1fr);
+        margin: 0 24px;
+      }
+      .pricing-tier {
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+      }
+      .pricing-tier:nth-child(2) {
+        border-right: none;
+      }
+      .pricing-section {
+        padding: 36px 24px 0;
+        overflow-x: auto;
+      }
+      .pricing-section h2 { font-size: 26px; }
+      .divider { padding: 0 24px; }
+    }
+
+    @media (max-width: 640px) {
+      .page-header h1 { font-size: 28px; }
+      .pricing-grid {
+        grid-template-columns: 1fr;
+        margin: 0 16px;
+      }
+      .pricing-tier {
+        border-right: none;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        padding: 28px 24px;
+      }
+      .pricing-section { padding: 28px 16px 0; }
+      .pricing-table { font-size: 13px; }
+      .pricing-table thead th,
+      .pricing-table tbody td { padding: 10px 12px; }
+      .divider { padding: 0 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-left">
+      <a class="nav-back" href="index.html">&larr; 返回首页</a>
+      <div class="nav-logo" onclick="window.location.href='index.html'">开物传媒</div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <h1>2026 摄影报价单</h1>
+    <p class="subtitle">影像制作部门拍摄云剪辑报价单。透明合理的定价体系，涵盖 Air / Plus / ProMax / Ultra 四档方案，为您提供从基础拍摄到电影级制作的全方位影像服务。</p>
+  </div>
+
+  <!-- Tier Overview Cards -->
+  <div class="pricing-grid">
+    <div class="pricing-tier">
+      <div class="tier-label">基础档</div>
+      <div class="tier-name">Air</div>
+      <div class="tier-price">400 <span>- 1,200</span></div>
+      <div class="tier-unit">元 / 场</div>
+      <ul class="tier-desc">
+        <li>索尼 A7M4 / A9 系列机身</li>
+        <li>20-70mm 等标准镜头</li>
+        <li>拍摄 100-500 张原片</li>
+        <li>精修 10-30 张</li>
+        <li>高清原片云端交付</li>
+      </ul>
+    </div>
+    <div class="pricing-tier">
+      <div class="tier-label">进阶档</div>
+      <div class="tier-name">Plus</div>
+      <div class="tier-price">1,500 <span>- 1,800</span></div>
+      <div class="tier-unit">元 / 场</div>
+      <ul class="tier-desc">
+        <li>索尼 A7R5 / A7S3 机身</li>
+        <li>5K 超高画质拍摄</li>
+        <li>FX3 电影机可选</li>
+        <li>精修 20-50 张</li>
+        <li>含基础调色与排版</li>
+      </ul>
+    </div>
+    <div class="pricing-tier">
+      <div class="tier-label">专业档</div>
+      <div class="tier-name">ProMax</div>
+      <div class="tier-price">2,000 <span>- 2,500</span></div>
+      <div class="tier-unit">元 / 场</div>
+      <ul class="tier-desc">
+        <li>索尼 A9III + A7R5 双机位</li>
+        <li>4K / 6K 超高清拍摄</li>
+        <li>FX3 + A7S3 电影组合</li>
+        <li>360 / Action / Pocket 多机位</li>
+        <li>精修 40-80 张 + 视频剪辑</li>
+      </ul>
+    </div>
+    <div class="pricing-tier">
+      <div class="tier-label">旗舰档</div>
+      <div class="tier-name">Ultra</div>
+      <div class="tier-price">4,000 <span>- 5,000</span></div>
+      <div class="tier-unit">元 / 场</div>
+      <ul class="tier-desc">
+        <li>A9III + A7R5 全画幅旗舰组合</li>
+        <li>4K / 8K 超高分辨率</li>
+        <li>FX3 电影级拍摄方案</li>
+        <li>全场景多机位覆盖</li>
+        <li>不限精修 + 完整视频制作</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Shooting Pricing Detail -->
+  <div class="pricing-section fade-in">
+    <h2>拍摄方案明细</h2>
+    <table class="pricing-table">
+      <thead>
+        <tr>
+          <th>档位</th>
+          <th>方案</th>
+          <th>价格</th>
+          <th>设备配置</th>
+          <th>拍摄内容</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-tier">Air</td>
+          <td>方案 A</td>
+          <td class="col-price">400-600 元</td>
+          <td>索尼 A9 系列 + 20-70mm 镜头</td>
+          <td>拍摄 100-500 张，高清原片交付</td>
+        </tr>
+        <tr>
+          <td class="col-tier">Air</td>
+          <td>方案 B</td>
+          <td class="col-price">400-600 元</td>
+          <td>富士 X-H2S + 标准镜头组合</td>
+          <td>拍摄 100-500 张，含基础修图</td>
+        </tr>
+        <tr>
+          <td class="col-tier">Air</td>
+          <td>方案 C</td>
+          <td class="col-price">800-1,000 元</td>
+          <td>索尼 A7M4+ 标准镜头</td>
+          <td>拍摄 200-600 张，精修 15 张</td>
+        </tr>
+        <tr>
+          <td class="col-tier">Air</td>
+          <td>方案 D</td>
+          <td class="col-price">900-1,200 元</td>
+          <td>索尼 A7M4+ + 85mm 定焦</td>
+          <td>拍摄 300-800 张，精修 20 张</td>
+        </tr>
+        <tr>
+          <td class="col-tier">Plus</td>
+          <td>方案 E</td>
+          <td class="col-price">1,500-1,800 元</td>
+          <td>索尼 A7R5 + 高端镜头组合</td>
+          <td>5K 画质，精修 30 张</td>
+        </tr>
+        <tr>
+          <td class="col-tier">Plus</td>
+          <td>方案 F</td>
+          <td class="col-price">1,500-1,800 元</td>
+          <td>索尼 FX3 + A7S3 电影机</td>
+          <td>视频 + 照片双修，精修 25 张</td>
+        </tr>
+        <tr>
+          <td class="col-tier">ProMax</td>
+          <td>方案 G</td>
+          <td class="col-price">2,500 元</td>
+          <td>索尼 A9III + A7R5 双机位 4K/6K</td>
+          <td>双机位拍摄，精修 50 张</td>
+        </tr>
+        <tr>
+          <td class="col-tier">ProMax</td>
+          <td>方案 H</td>
+          <td class="col-price">2,000 元</td>
+          <td>FX3 + A7S3 / 360 / Action / Pocket</td>
+          <td>多角度拍摄，精修 40 张 + 视频</td>
+        </tr>
+        <tr>
+          <td class="col-tier">Ultra</td>
+          <td>方案 I</td>
+          <td class="col-price">4,000 元</td>
+          <td>A9III + A7R5 全画幅旗舰 4K/8K</td>
+          <td>旗舰全场景，不限精修</td>
+        </tr>
+        <tr>
+          <td class="col-tier">Ultra</td>
+          <td>方案 J</td>
+          <td class="col-price">5,000 元</td>
+          <td>FX3 电影级全套方案</td>
+          <td>电影级制作，完整视频 + 照片</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="divider"><hr></div>
+
+  <!-- Video & Photo Editing -->
+  <div class="pricing-section fade-in">
+    <h2>云剪辑服务</h2>
+    <table class="pricing-table">
+      <thead>
+        <tr>
+          <th>档位</th>
+          <th>服务内容</th>
+          <th>价格</th>
+          <th>说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-tier">Air</td>
+          <td>短视频 / 花絮剪辑</td>
+          <td class="col-price">200 元 <span class="note">/ 条</span></td>
+          <td>15-60 秒短视频，含基础调色与转场</td>
+        </tr>
+        <tr>
+          <td class="col-tier">Plus</td>
+          <td>精剪短片 / 宣传片</td>
+          <td class="col-price">400 元 <span class="note">/ 条</span></td>
+          <td>1-3 分钟成片，含调色、音乐、字幕</td>
+        </tr>
+        <tr>
+          <td class="col-tier">ProMax</td>
+          <td>完整影片制作</td>
+          <td class="col-price">按项目报价</td>
+          <td>含脚本、分镜、拍摄、后期全链路</td>
+        </tr>
+        <tr>
+          <td class="col-tier">Ultra</td>
+          <td>电影级制作</td>
+          <td class="col-price">按项目报价</td>
+          <td>多机位、航拍、特效、完整后期制作</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="divider"><hr></div>
+
+  <!-- Enterprise Photography -->
+  <div class="pricing-section fade-in">
+    <h2>企业摄影服务</h2>
+    <table class="pricing-table">
+      <thead>
+        <tr>
+          <th>服务类型</th>
+          <th>价格</th>
+          <th>设备</th>
+          <th>说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-tier">形象照</td>
+          <td class="col-price">1,000-3,000 元</td>
+          <td>高像素相机 + 专业灯光</td>
+          <td>个人 / 团队形象照，含精修</td>
+        </tr>
+        <tr>
+          <td class="col-tier">团体照</td>
+          <td class="col-price">1,000 元起</td>
+          <td>高像素相机 + 广角镜头</td>
+          <td>10-100 人团体合影，含精修</td>
+        </tr>
+        <tr>
+          <td class="col-tier">活动跟拍</td>
+          <td class="col-price">3,000 元起 <span class="note">/ 场</span></td>
+          <td>双机位 + 高速连拍</td>
+          <td>会议、年会、展会等全天跟拍</td>
+        </tr>
+        <tr>
+          <td class="col-tier">产品拍摄</td>
+          <td class="col-price">按项目报价</td>
+          <td>微距镜头 + 产品灯光台</td>
+          <td>电商、品牌产品图，含后期精修</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="pricing-note">
+      <strong>备注：</strong>以上报价均为 2026 年度参考价格，实际费用根据拍摄场景、时长、人数等因素有所调整。所有方案均含高清原片云端交付，支持百度网盘 / 阿里云盘 / Google Drive 等多平台。如需定制方案，请联系我们获取专属报价。
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <span>Copyright &copy; 2018 - 2026 开物传媒 Genesis Media · </span>
+    <a href="index.html">返回首页</a>
+  </div>
+
+  <script>
+    // ========== Scroll-triggered fade-in ==========
+    var observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(function(el) {
+      observer.observe(el);
+    });
+
+    // Stagger pricing tier cards
+    document.querySelectorAll('.pricing-tier').forEach(function(el, i) {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.5s ease ' + i * 0.1 + 's, transform 0.5s ease ' + i * 0.1 + 's, background 0.3s, color 0.3s';
+    });
+
+    var tierObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.pricing-tier').forEach(function(el) {
+      tierObserver.observe(el);
+    });
+  </script>
+
+</body>
+</html>

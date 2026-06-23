@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>关于我们 — 开物传媒</title>
+  <style>
+    /* ========== Reset & Base ========== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    @font-face {
+      font-family: 'StudioSans';
+      src: local('PingFang SC'), local('Noto Sans SC'), local('Microsoft YaHei'), local('Helvetica Neue'), local('Arial');
+      font-weight: 400;
+    }
+    @font-face {
+      font-family: 'StudioSans';
+      src: local('PingFang SC Semibold'), local('Noto Sans SC Bold'), local('Microsoft YaHei Bold'), local('Helvetica Neue Bold'), local('Arial Bold');
+      font-weight: 600;
+    }
+    @font-face {
+      font-family: 'StudioSans';
+      src: local('PingFang SC Bold'), local('Noto Sans SC Black'), local('Microsoft YaHei Bold'), local('Helvetica Neue Bold'), local('Arial Bold');
+      font-weight: 700;
+    }
+
+    :root {
+      --cream: #faf7f5;
+      --black: #000;
+      --white: #fff;
+      --gray-text: rgba(0,0,0,0.4);
+      --transition-smooth: cubic-bezier(.4,0,.2,1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'StudioSans', 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+      background: var(--cream);
+      color: var(--black);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ========== Navigation ========== */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--cream);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-back {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: var(--gray-text);
+      transition: color 0.2s;
+      cursor: pointer;
+    }
+    .nav-back:hover { color: var(--black); }
+
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .nav-logo:hover { opacity: 0.7; }
+
+    /* ========== Hero ========== */
+    .about-hero {
+      position: relative;
+      width: 100%;
+      height: 70vh;
+      min-height: 460px;
+      max-height: 720px;
+      overflow: hidden;
+    }
+
+    .about-hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.6);
+    }
+
+    .about-hero::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0.45));
+      pointer-events: none;
+    }
+
+    .about-hero-title {
+      position: absolute;
+      bottom: 64px;
+      left: 48px;
+      z-index: 5;
+      color: var(--white);
+    }
+
+    .about-hero-title h1 {
+      font-size: 56px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      line-height: 1.2;
+    }
+
+    .about-hero-title p {
+      margin-top: 12px;
+      font-size: 16px;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.04em;
+    }
+
+    /* ========== Sections ========== */
+    .about-section {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 80px 48px;
+    }
+
+    .about-section h2 {
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 24px;
+    }
+
+    .about-section .intro {
+      font-size: 16px;
+      color: rgba(0,0,0,0.65);
+      line-height: 2;
+      max-width: 720px;
+    }
+
+    /* ========== Two-Column Layout ========== */
+    .split-row {
+      display: flex;
+      gap: 0;
+      border: 1px solid var(--black);
+    }
+
+    .split-row .split-img {
+      flex: 1;
+      min-height: 400px;
+      overflow: hidden;
+    }
+
+    .split-row .split-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.6);
+      transition: filter 0.5s;
+    }
+
+    .split-row:hover .split-img img {
+      filter: saturate(0.9);
+    }
+
+    .split-row .split-text {
+      flex: 1;
+      padding: 56px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .split-row .split-text h3 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: 0.02em;
+    }
+
+    .split-row .split-text p {
+      font-size: 15px;
+      color: rgba(0,0,0,0.65);
+      line-height: 1.9;
+      margin-bottom: 16px;
+    }
+
+    .split-row .split-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    .split-row.reversed .split-img { order: 2; }
+    .split-row.reversed .split-text { order: 1; }
+
+    /* ========== Values Grid ========== */
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .value-card {
+      border: 1px solid var(--black);
+      padding: 36px 28px;
+      transition: background 0.3s, color 0.3s;
+      cursor: default;
+    }
+
+    .value-card:hover {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .value-card .value-num {
+      font-size: 48px;
+      font-weight: 700;
+      color: rgba(0,0,0,0.08);
+      margin-bottom: 16px;
+      transition: color 0.3s;
+    }
+
+    .value-card:hover .value-num {
+      color: rgba(255,255,255,0.15);
+    }
+
+    .value-card h4 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: 0.02em;
+    }
+
+    .value-card p {
+      font-size: 14px;
+      color: rgba(0,0,0,0.55);
+      line-height: 1.7;
+      transition: color 0.3s;
+    }
+
+    .value-card:hover p {
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* ========== Gallery ========== */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+      margin-top: 40px;
+    }
+
+    .gallery-grid .gallery-item {
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+    }
+
+    .gallery-grid .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.4) brightness(0.95);
+      transition: filter 0.5s, transform 0.5s;
+    }
+
+    .gallery-grid .gallery-item:hover img {
+      filter: saturate(1) brightness(1);
+      transform: scale(1.04);
+    }
+
+    /* ========== Stats ========== */
+    .stats-bar {
+      display: flex;
+      border: 1px solid var(--black);
+      margin-top: 48px;
+    }
+
+    .stat-item {
+      flex: 1;
+      text-align: center;
+      padding: 40px 20px;
+      border-right: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .stat-item:last-child { border-right: none; }
+
+    .stat-item .stat-num {
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .stat-item .stat-label {
+      font-size: 13px;
+      color: var(--gray-text);
+      margin-top: 8px;
+      letter-spacing: 0.06em;
+    }
+
+    /* ========== Footer ========== */
+    .footer {
+      text-align: center;
+      padding: 48px;
+      font-size: 13px;
+      color: var(--gray-text);
+      border-top: 1px solid rgba(0,0,0,0.08);
+      margin-top: 0;
+    }
+
+    .footer a { transition: opacity 0.2s; }
+    .footer a:hover { opacity: 0.6; }
+
+    /* ========== Animations ========== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ========== Responsive ========== */
+    @media (max-width: 960px) {
+      .nav { padding: 0 24px; }
+      .about-hero-title { left: 24px; bottom: 48px; }
+      .about-hero-title h1 { font-size: 40px; }
+      .about-section { padding: 60px 24px; }
+      .about-section h2 { font-size: 28px; }
+      .split-row { flex-direction: column; }
+      .split-row.reversed .split-img { order: 0; }
+      .split-row.reversed .split-text { order: 0; }
+      .split-row .split-img { min-height: 280px; }
+      .split-row .split-text { padding: 40px 24px; }
+      .values-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-bar { flex-wrap: wrap; }
+      .stat-item { flex: 1 1 50%; min-width: 140px; }
+    }
+
+    @media (max-width: 640px) {
+      .about-hero-title h1 { font-size: 28px; }
+      .about-hero { height: 50vh; min-height: 320px; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .stat-item .stat-num { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-left">
+      <a class="nav-back" href="index.html">&larr; 返回首页</a>
+      <div class="nav-logo" onclick="window.location.href='index.html'">开物传媒</div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="about-hero">
+    <img src="新建文件夹/18ab422b284b598211faffa5284d953a.jpg" alt="开物传媒" />
+    <div class="about-hero-title">
+      <h1>开物传媒</h1>
+      <p>From Light, We Create · 以光影为媒，开万物之象</p>
+    </div>
+  </div>
+
+  <!-- Intro -->
+  <div class="about-section fade-in">
+    <h2>我们的故事</h2>
+    <p class="intro">
+      开物传媒成立于 2018 年，"开物"取自《易经》"开物成务"，意为洞悉事物本质、创造万物。Genesis 意为起源与创造——我们相信，每一次拍摄都是一次从无到有的创作。从最初的一间小工作室到如今服务超过 3000 组客户的专业团队，我们始终坚持用光影讲述每一个独一无二的故事。
+    </p>
+  </div>
+
+  <!-- Split: Team -->
+  <div class="about-section fade-in" style="padding-top: 0;">
+    <div class="split-row">
+      <div class="split-img">
+        <img src="新建文件夹/dc95580c6dcf644df1b40063e383d4b9.jpg" alt="开物传媒团队" />
+      </div>
+      <div class="split-text">
+        <h3>五位摄影师，五种风格</h3>
+        <p>我们的团队由五位风格各异的摄影师组成，从细腻温柔的日系清新到浓烈深沉的电影质感，每一位成员都拥有超过 8 年的从业经验。</p>
+        <p>我们不追求千篇一律的模板化拍摄，而是坚持"一客一案"——在拍摄前深入了解每一位客户的故事与审美偏好，让每一张照片都独一无二。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Split: Philosophy -->
+  <div class="about-section fade-in" style="padding-top: 0;">
+    <div class="split-row reversed">
+      <div class="split-img">
+        <img src="新建文件夹/bf64fc559e3ed2846c721f768d5dc0e6.jpg" alt="开物传媒作品" />
+      </div>
+      <div class="split-text">
+        <h3>从光到影，从心到镜</h3>
+        <p>摄影不只是按下快门的瞬间。每一次拍摄，我们都从沟通开始，了解您是谁、您想表达什么、什么样的画面能让您看到自己最好的一面。</p>
+        <p>从个人写真到品牌广告，从婚礼纪实到食物摄影，我们以光影为媒，连接真实与美，让稍纵即逝的瞬间成为值得一生珍藏的画面。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="about-section fade-in" style="padding-top: 0; padding-bottom: 0;">
+    <div class="stats-bar">
+      <div class="stat-item">
+        <div class="stat-num">2018</div>
+        <div class="stat-label">成立年份</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3000+</div>
+        <div class="stat-label">服务客户</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">5</div>
+        <div class="stat-label">资深摄影师</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">8+</div>
+        <div class="stat-label">年平均从业经验</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Values -->
+  <div class="about-section fade-in">
+    <h2>我们的坚持</h2>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-num">01</div>
+        <h4>一客一案</h4>
+        <p>拒绝模板化拍摄，每一次创作都从了解客户开始，量身定制专属拍摄方案。</p>
+      </div>
+      <div class="value-card">
+        <div class="value-num">02</div>
+        <h4>真实自然</h4>
+        <p>我们引导而不摆拍，捕捉最真实的表情与状态，让照片有温度、有故事。</p>
+      </div>
+      <div class="value-card">
+        <div class="value-num">03</div>
+        <h4>全链路把控</h4>
+        <p>从前期沟通到后期精修，每一个环节都由专业团队完成，确保品质始终如一。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gallery -->
+  <div class="about-section fade-in" style="padding-bottom: 0;">
+    <h2>更多剧照</h2>
+  </div>
+  <div class="gallery-grid fade-in">
+    <div class="gallery-item">
+      <img src="新建文件夹/34fa8baa8abb63226e06de03299d3144.jpg" alt="作品" />
+    </div>
+    <div class="gallery-item">
+      <img src="新建文件夹/933edb3a021243ef25d79c04fb9c6618.jpg" alt="作品" />
+    </div>
+    <div class="gallery-item">
+      <img src="新建文件夹/7d7844f2945b1da87439af5f9ce8fb86.jpg" alt="作品" />
+    </div>
+    <div class="gallery-item">
+      <img src="新建文件夹/a4e8def7b38e849afb9a0e11b80b6226.jpg" alt="作品" />
+    </div>
+    <div class="gallery-item">
+      <img src="新建文件夹/7a79ae939c0c952a0e7fab262437c1b9.jpg" alt="作品" />
+    </div>
+    <div class="gallery-item">
+      <img src="新建文件夹/e9c35f03413948e642740b52585b3e57.jpg" alt="作品" />
+    </div>
+    <div class="gallery-item">
+      <img src="新建文件夹/fd699bb881334de4e929881bd9334523.jpg" alt="作品" />
+    </div>
+    <div class="gallery-item">
+      <img src="新建文件夹/ab41049a91bccf2dfa96f35e98a1b444.jpg" alt="作品" />
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <span>Copyright &copy; 2018 - 2026 开物传媒 Genesis Media · </span>
+    <a href="index.html">返回首页</a>
+  </div>
+
+  <script>
+    // Scroll-triggered fade-in
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach(function(el) {
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>
